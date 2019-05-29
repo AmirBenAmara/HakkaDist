@@ -18,11 +18,11 @@ class Film
     /**
      * @var integer
      *
-     * @ORM\Column(name="Id_film", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idFilm;
+    private $id;
 
     /**
      * @var string
@@ -93,20 +93,67 @@ class Film
     private $imageFile;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="BordereauRegion", mappedBy="film")
+     */
+    private $borderauxRegions;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="BordereauSalle", mappedBy="film")
+     */
+    private $borderauxSalles;
+
+    /**
      * @return int
      */
-    public function getIdFilm()
+    public function getId()
     {
-        return $this->idFilm;
+        return $this->id;
     }
 
     /**
-     * @param int $idFilm
+     * @param int $id
      */
-    public function setIdFilm($idFilm)
+    public function setId($id)
     {
-        $this->idFilm = $idFilm;
+        $this->id = $id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBorderauxRegions()
+    {
+        return $this->borderauxRegions;
+    }
+
+    /**
+     * @param mixed $borderauxRegions
+     */
+    public function setBorderauxRegions($borderauxRegions)
+    {
+        $this->borderauxRegions = $borderauxRegions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBorderauxSalles()
+    {
+        return $this->borderauxSalles;
+    }
+
+    /**
+     * @param mixed $borderauxSalles
+     */
+    public function setBorderauxSalles($borderauxSalles)
+    {
+        $this->borderauxSalles = $borderauxSalles;
+    }
+
+
+
 
     /**
      * @return string
