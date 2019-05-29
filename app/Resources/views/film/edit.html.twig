@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Film edit</h1>
+    <a class="btn btn-warning" style="float: right" href="{{ path('film_index') }}">Back to the list</a>
+<br>
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input class="btn btn-primary" type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
+
+
+            {{ form_start(delete_form) }}
+                <input class="btn btn-danger" type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+
+{% endblock %}

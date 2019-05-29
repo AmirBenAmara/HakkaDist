@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Film</h1>
+    <a class="btn btn-warning" style="float: right" href="{{ path('film_index') }}">Back to the list</a>
+<br>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idfilm</th>
+                <td>{{ film.idFilm }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ film.titre }}</td>
+            </tr>
+            <tr>
+                <th>Entree_total</th>
+                <td>{{ film.entreetotal }}</td>
+            </tr>
+            <tr>
+                <th>Part_dist_salle</th>
+                <td>{{ film.partdistsalle }}</td>
+            </tr>
+            <tr>
+                <th>Part_dist_region</th>
+                <td>{{ film.partdistregion }}</td>
+            </tr>
+            <tr>
+                <th>Part_prod_salle</th>
+                <td>{{ film.partprodsalle }}</td>
+            </tr>
+            <tr>
+                <th>Part_prod_region</th>
+                <td>{{ film.partprodregion }}</td>
+            </tr>
+            <tr>
+                <th>Depenses_total</th>
+                <td>{{ film.depensestotal }}</td>
+            </tr>
+            <tr>
+                <th>Date_sortie</th>
+                <td>{{ film.datesortie|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ film.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+
+        <li>
+            <a class="btn btn-primary" href="{{ path('film_edit', { 'idFilm': film.idFilm }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input class="btn btn-danger" type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
