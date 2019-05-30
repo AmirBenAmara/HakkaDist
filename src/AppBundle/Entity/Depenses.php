@@ -21,6 +21,19 @@ class Depenses
      */
     private $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=255, nullable=false)
+     */
+    private $libelle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Film" , inversedBy="depenses")
+     * @ORM\JoinColumn(name="film_id", referencedColumnName="id")
+     */
+    private $semaine;
+
 
     /**
      * Get id
@@ -31,5 +44,39 @@ class Depenses
     {
         return $this->id;
     }
+
+    /**
+     * @return string
+     */
+    public function getLibelle()
+    {
+        return $this->libelle;
+    }
+
+    /**
+     * @param string $libelle
+     */
+    public function setLibelle($libelle)
+    {
+        $this->libelle = $libelle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSemaine()
+    {
+        return $this->semaine;
+    }
+
+    /**
+     * @param mixed $semaine
+     */
+    public function setSemaine($semaine)
+    {
+        $this->semaine = $semaine;
+    }
+
+
 }
 

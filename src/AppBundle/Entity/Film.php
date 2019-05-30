@@ -76,7 +76,7 @@ class Film
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Image_Astuce", type="date")
+     * @ORM\Column(name="date_sortie", type="date", nullable=true)
      */
     private $date_sortie;
 
@@ -103,6 +103,12 @@ class Film
      * @ORM\OneToMany(targetEntity="BordereauSalle", mappedBy="film")
      */
     private $borderauxSalles;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Depenses", mappedBy="film")
+     */
+    private $depenses;
 
     /**
      * @return int
@@ -321,6 +327,22 @@ class Film
     public function __toString()
     {
         return $this->getTitre();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDepenses()
+    {
+        return $this->depenses;
+    }
+
+    /**
+     * @param mixed $depenses
+     */
+    public function setDepenses($depenses)
+    {
+        $this->depenses = $depenses;
     }
 
 

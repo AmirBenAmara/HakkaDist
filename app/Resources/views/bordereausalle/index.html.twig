@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bordereausalles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bordereauSalle in bordereauSalles %}
+            <tr>
+                <td><a href="{{ path('brdsalle_show', { 'id': bordereauSalle.id }) }}">{{ bordereauSalle.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('brdsalle_show', { 'id': bordereauSalle.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('brdsalle_edit', { 'id': bordereauSalle.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('brdsalle_new') }}">Create a new bordereauSalle</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -37,5 +37,23 @@ class Region
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBorderauxRegions()
+    {
+        return $this->borderauxRegions;
+    }
+
+    /**
+     * @param mixed $borderauxRegions
+     */
+    public function setBorderauxRegions($borderauxRegions)
+    {
+        $this->borderauxRegions = $borderauxRegions;
+    }
+
+
 }
 

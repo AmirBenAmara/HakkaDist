@@ -39,5 +39,22 @@ class Salle
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBorderauxSalles()
+    {
+        return $this->borderauxSalles;
+    }
+
+    /**
+     * @param mixed $borderauxSalles
+     */
+    public function setBorderauxSalles($borderauxSalles)
+    {
+        $this->borderauxSalles = $borderauxSalles;
+    }
+
 }
 
