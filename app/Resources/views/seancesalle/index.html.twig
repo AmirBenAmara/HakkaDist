@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Seancesalles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nbr_entree_seance</th>
+                <th>Recette_seance</th>
+                <th>Date_seance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for seanceSalle in seanceSalles %}
+            <tr>
+                <td><a href="{{ path('seancesalle_show', { 'id': seanceSalle.id }) }}">{{ seanceSalle.id }}</a></td>
+                <td>{{ seanceSalle.nbrentreeseance }}</td>
+                <td>{{ seanceSalle.recetteseance }}</td>
+                <td>{% if seanceSalle.dateseance %}{{ seanceSalle.dateseance|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('seancesalle_show', { 'id': seanceSalle.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('seancesalle_edit', { 'id': seanceSalle.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('seancesalle_new') }}">Create a new seanceSalle</a>
+        </li>
+    </ul>
+{% endblock %}

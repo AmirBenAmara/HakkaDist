@@ -29,6 +29,29 @@ class Salle
     private $borderauxSalles;
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=255, nullable=false)
+     */
+    private $nom;
+
+    /**
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param string $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
 
     /**
      * Get id
@@ -54,6 +77,11 @@ class Salle
     public function setBorderauxSalles($borderauxSalles)
     {
         $this->borderauxSalles = $borderauxSalles;
+    }
+
+    function __toString()
+    {
+       return $this->nom;
     }
 
 }

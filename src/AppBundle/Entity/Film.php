@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="film")
  * @Vich\Uploadable
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FilmRepository")
  */
 class Film
 {

@@ -29,6 +29,31 @@ class Region
     private $borderauxRegions;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     */
+    private $nom;
+
+    /**
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param string $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+
+
+    /**
      * Get id
      *
      * @return int
@@ -52,6 +77,11 @@ class Region
     public function setBorderauxRegions($borderauxRegions)
     {
         $this->borderauxRegions = $borderauxRegions;
+    }
+
+    function __toString()
+    {
+        return $this->nom;
     }
 
 

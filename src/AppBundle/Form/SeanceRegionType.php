@@ -1,31 +1,26 @@
 <?php
 
 namespace AppBundle\Form;
-use AppBundle\Entity\Film;
-use AppBundle\Entity\Salle;
-use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BordereauSalleType extends AbstractType
+class SeanceRegionType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('film')//, AutocompleteType::class, ['class' => Film::class])
-            ->add('salle')// ,AutocompleteType::class, ['class' => Salle::clas1s])
-            ->add('semaine');
+        $builder->add('nbr_entree_seance')->add('recette_seance')->add('date_seance')->add('bordereau_region');
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\BordereauSalle'
+            'data_class' => 'AppBundle\Entity\SeanceRegion'
         ));
     }
 
@@ -34,7 +29,7 @@ class BordereauSalleType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_bordereausalle';
+        return 'appbundle_seanceregion';
     }
 
 
