@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Depenses
- *
+ * @Vich\Uploadable
  * @ORM\Table(name="depenses")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DepensesRepository")
  */
@@ -32,7 +32,19 @@ class Depenses
      * @ORM\ManyToOne(targetEntity="Film" , inversedBy="depenses")
      * @ORM\JoinColumn(name="film_id", referencedColumnName="id")
      */
-    private $semaine;
+    private $film;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image" nullable="true")
+     * @var File
+     */
+    private $imageFile;
 
 
     /**
