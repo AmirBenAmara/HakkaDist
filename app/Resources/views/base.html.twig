@@ -129,7 +129,19 @@
                         <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i> Ajouter Salle</a></li>
                     </ul>
                 </li>
-
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>Bordereau</span>
+                        <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ path('brdsalle_new') }}"><i class="fa fa-circle-o"></i> Bordereau Salle</a></li>
+                        <li><a href="{{ path('bordereauregion_new') }}"><i class="fa fa-circle-o"></i> Bordereau region</a></li>
+                    </ul>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->

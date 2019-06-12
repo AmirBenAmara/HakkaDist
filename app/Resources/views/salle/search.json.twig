@@ -1,0 +1,7 @@
+[
+    {% for salle in salles -%}
+    {{ {id: salle.id, text: salle.__toString}|json_encode|raw }}
+
+    {%- if not loop.last %},{% endif -%}
+    {%- endfor %}
+]

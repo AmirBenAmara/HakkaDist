@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Seanceregions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nbr_entree_seance</th>
+                <th>Recette_seance</th>
+                <th>Date_seance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for seanceRegion in seanceRegions %}
+            <tr>
+                <td><a href="{{ path('seanceregion_show', { 'id': seanceRegion.id }) }}">{{ seanceRegion.id }}</a></td>
+                <td>{{ seanceRegion.nbrentreeseance }}</td>
+                <td>{{ seanceRegion.recetteseance }}</td>
+                <td>{% if seanceRegion.dateseance %}{{ seanceRegion.dateseance|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('seanceregion_show', { 'id': seanceRegion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('seanceregion_edit', { 'id': seanceRegion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('seanceregion_new') }}">Create a new seanceRegion</a>
+        </li>
+    </ul>
+{% endblock %}

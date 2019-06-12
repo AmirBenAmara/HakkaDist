@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+   {% block stylesheets %}
+       <link href="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.css" rel="stylesheet">
+       <link href="//cdn.rawgit.com/t0m/select2-bootstrap-css/bootstrap3/select2-bootstrap.css" rel="stylesheet">
+   {% endblock %}
 {% block body %}
     <h1>Bordereausalle creation</h1>
 
@@ -13,4 +16,13 @@
             <a href="{{ path('brdsalle_index') }}">Back to the list</a>
         </li>
     </ul>
+    {#<a href="{{ path('search_film') }}" id="url-list" class="hidden"></a>#}
+    {#<a href="{{ path('get_film') }}" id="url-get" class="hidden"></a>#}
+
+{% endblock %}
+
+{% block javascripts %}
+    {#<script src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.js"></script>#}
+    {#<script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-select2.js') }}"></script>#}
+    {#<script src="{{ asset('assets/js/app.js') }}"></script>#}
 {% endblock %}
