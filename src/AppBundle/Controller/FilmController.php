@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Film;
-use AppBundle\Repository\FilmRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -49,7 +48,7 @@ class FilmController extends Controller
             $em->persist($film);
             $em->flush();
 
-            return $this->redirectToRoute('film_show', array('id' => $film->getIdfilm()));
+            return $this->redirectToRoute('film_index', array('id' => $film->getId()));
         }
 
         return $this->render('film/new.html.twig', array(
@@ -89,7 +88,7 @@ class FilmController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('film_edit', array('idFilm' => $film->getIdfilm()));
+            return $this->redirectToRoute('film_edit', array('id' => $film->getId()));
         }
 
         return $this->render('film/edit.html.twig', array(
@@ -129,34 +128,9 @@ class FilmController extends Controller
     private function createDeleteForm(Film $film)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('film_delete', array('idFilm' => $film->getIdfilm())))
+            ->setAction($this->generateUrl('film_delete', array('id' => $film->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
     }
-
-
-    /**
-     * @Route("/search-film", name="search_film", defaults={"_format"="json"})
-     * @Method("GET")
-     */
-    public function searchAction(FilmRepository $repo, Request $request)
-    {
-        $qs = $request->query->get('q');
-        $em = $this->getDoctrine()->getManager();
-
-        $films = $em->getRepository('AppBundle:Film')->findLike($qs);
-        return $this->render('film/search.json.twig', ['films' => $films]);
-    }
-    /**
-     * @Route("/get-film/{id}", name="get_film", defaults={"_format"="json"})
-     * @Method("GET")
-     */
-    public function getAction($id , FilmRepository $repo)
-    {
-        if (null === $film = $repo->find($id)) {
-            throw $this->createNotFoundException();
-        }
-        return $this->json($film->getTitre());
-}
 }

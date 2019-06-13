@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Salle;
-use AppBundle\Repository\SalleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -134,29 +133,4 @@ class SalleController extends Controller
             ->getForm()
         ;
     }
-
-
-
-    /**
-     * @Route("/search-salle", name="search_salle", defaults={"_format"="json"})
-     * @Method("GET")
-     */
-    public function searchAction(SalleRepository $repo, Request $request)
-    {
-        $qs = $request->query->get('q', $request->query->get('term', ''));
-        $salles = $repo->findLike($qs);
-        return $this->render('salle/search.json.twig', ['salles' => $salles]);
-    }
-    /**
-     * @Route("/get-salle/{id}", name="get_salle", defaults={"_format"="json"})
-     * @Method("GET")
-     */
-    public function getAction ($id , SalleRepository $repo)
-    {
-        if (null === $salle = $repo->find($id)) {
-            throw $this->createNotFoundException();
-        }
-        return $this->json($salle->getTitre());
-    }
-
 }

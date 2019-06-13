@@ -15,13 +15,14 @@ class FilmType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titre')
-            ->add('entree_total')
+        $builder
+            ->add('titre')
+            /*->add('entree_total')
             ->add('part_dist_salle')
             ->add('part_dist_region')
             ->add('part_prod_salle')
             ->add('part_prod_region')
-            ->add('depenses_total')
+            ->add('depenses_total')*/
             ->add('date_sortie')
             ->add('imageFile', VichImageType::class, [
                 'required' => false,

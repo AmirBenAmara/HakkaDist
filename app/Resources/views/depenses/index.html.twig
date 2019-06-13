@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Depenses list</h1>
+    <a class="btn btn-success" href="{{ path('film_new') }}">Add Film</a>
+
+    <table id="example2" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Libelle</th>
+            <th>Valeur</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for depense in depenses %}
+            <tr>
+                <td><img src="{{ vich_uploader_asset(depense, 'imageFile') }}" style="height: 50px ; width: 40px"></td>
+                <td>{{ depense.libelle }}</td>
+                <td>{{ depense.valeur }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a class="btn btn-primary" href="{{ path('depenses_show', { 'id': depense.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-google" href="{{ path('depenses_edit', { 'id': depense.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('depenses_new') }}">Create a new depense</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -5,22 +5,31 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class SalleType extends AbstractType
+
+class DepensesType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('adresse')->add('mat_fiscale')->add('part_dist_salle')->add('part_proprio_salle');
+        $builder
+            ->add('libelle')
+            ->add('valeur')
+            ->add('film')
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true
+            ]);
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Salle'
+            'data_class' => 'AppBundle\Entity\Depenses'
         ));
     }
 
@@ -29,7 +38,7 @@ class SalleType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_salle';
+        return 'appbundle_depenses';
     }
 
 
