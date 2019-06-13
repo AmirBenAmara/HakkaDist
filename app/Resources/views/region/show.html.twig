@@ -1,43 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Salle</h1>
+    <h1>Region</h1>
 
     <table>
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ salle.id }}</td>
+                <td>{{ region.id }}</td>
             </tr>
             <tr>
                 <th>Nom</th>
-                <td>{{ salle.nom }}</td>
+                <td>{{ region.nom }}</td>
             </tr>
             <tr>
                 <th>Adresse</th>
-                <td>{{ salle.adresse }}</td>
+                <td>{{ region.adresse }}</td>
             </tr>
             <tr>
                 <th>Mat_fiscale</th>
-                <td>{{ salle.matfiscale }}</td>
+                <td>{{ region.matfiscale }}</td>
             </tr>
             <tr>
-                <th>Part_dist_salle</th>
-                <td>{{ salle.partdistsalle }}</td>
+                <th>Part_dist_region</th>
+                <td>{{ region.partdistregion }}</td>
             </tr>
             <tr>
-                <th>Part_proprio_salle</th>
-                <td>{{ salle.partpropriosalle }}</td>
+                <th>Part_proprio_region</th>
+                <td>{{ region.partproprioregion }}</td>
             </tr>
         </tbody>
     </table>
 
     <ul>
         <li>
-            <a href="{{ path('salle_index') }}">Back to the list</a>
+            <a href="{{ path('region_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('salle_edit', { 'id': salle.id }) }}">Edit</a>
+            <a href="{{ path('region_edit', { 'id': region.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

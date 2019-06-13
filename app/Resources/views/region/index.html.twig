@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Regions list</h1>
+
+    <a class="btn btn-success" href="{{ path('region_new') }}">Ajouter Region</a>
+
+    <table id="example2" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Mat_fiscale</th>
+                <th>Part_dist_region</th>
+                <th>Part_proprio_region</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for region in regions %}
+            <tr>
+                <td>{{ region.nom }}</td>
+                <td>{{ region.adresse }}</td>
+                <td>{{ region.matfiscale }}</td>
+                <td>{{ region.partdistregion }}</td>
+                <td>{{ region.partproprioregion }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a class="btn btn-primary" href="{{ path('region_show', { 'id': region.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-google" href="{{ path('region_edit', { 'id': region.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

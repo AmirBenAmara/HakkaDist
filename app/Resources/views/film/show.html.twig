@@ -2,13 +2,12 @@
 
 {% block body %}
     <h1>Film</h1>
-    <a class="btn btn-warning" style="float: right" href="{{ path('film_index') }}">Back to the list</a>
-<br>
-    <table class="table">
+
+    <table>
         <tbody>
             <tr>
-                <th>Idfilm</th>
-                <td>{{ film.idFilm }}</td>
+                <th>Id</th>
+                <td>{{ film.id }}</td>
             </tr>
             <tr>
                 <th>Titre</th>
@@ -40,7 +39,7 @@
             </tr>
             <tr>
                 <th>Date_sortie</th>
-                <td>{{ film.datesortie|date('Y-m-d') }}</td>
+                <td>{% if film.datesortie %}{{ film.datesortie|date('Y-m-d') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Image</th>
@@ -50,13 +49,15 @@
     </table>
 
     <ul>
-
         <li>
-            <a class="btn btn-primary" href="{{ path('film_edit', { 'idFilm': film.idFilm }) }}">Edit</a>
+            <a href="{{ path('film_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('film_edit', { 'id': film.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input class="btn btn-danger" type="submit" value="Delete">
+                <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>
