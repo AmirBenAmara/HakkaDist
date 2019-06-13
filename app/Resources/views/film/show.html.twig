@@ -2,13 +2,15 @@
 
 {% block body %}
     <h1>Film</h1>
+{{ form_start(delete_form) }}
+<input class="btn btn-danger" style="float: right" type="submit" value="X">
+{{ form_end(delete_form) }}
 
-    <table>
+    <a class="btn btn-success" href="{{ path('film_index') }}">Back to the list</a>
+
+    <table class="table table-striped">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ film.id }}</td>
-            </tr>
+
             <tr>
                 <th>Titre</th>
                 <td>{{ film.titre }}</td>
@@ -43,22 +45,11 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ film.image }}</td>
+                <td><img src="{{ vich_uploader_asset(film, 'imageFile') }}"</td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('film_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('film_edit', { 'id': film.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            <a class="btn btn-info" href="{{ path('film_edit', { 'id': film.id }) }}">Edit</a>
+
 {% endblock %}

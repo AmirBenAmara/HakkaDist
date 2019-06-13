@@ -2,13 +2,13 @@
 
 {% block body %}
     <h1>Salle</h1>
+    {{ form_start(delete_form) }}
+    <input class="btn btn-danger" style="float:right" type="submit" value="X">
+    {{ form_end(delete_form) }}
+    <a class="btn btn-success" href="{{ path('salle_index') }}">Back to the list</a>
 
-    <table>
+    <table class="table table-striped">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ salle.id }}</td>
-            </tr>
             <tr>
                 <th>Nom</th>
                 <td>{{ salle.nom }}</td>
@@ -32,17 +32,6 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('salle_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('salle_edit', { 'id': salle.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <a class="btn btn-info" href="{{ path('salle_edit', { 'id': salle.id }) }}">Edit</a>
+
 {% endblock %}

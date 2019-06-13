@@ -38,7 +38,6 @@ class Depenses
     private $valeur;
 
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Film" , inversedBy="depenses")
      * @ORM\JoinColumn(name="film_id", referencedColumnName="id")

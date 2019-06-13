@@ -25,13 +25,10 @@
                 <td>{{ region.partdistregion }}</td>
                 <td>{{ region.partproprioregion }}</td>
                 <td>
-                    <ul>
-                        <li>
+
                             <a class="btn btn-primary" href="{{ path('region_show', { 'id': region.id }) }}">show</a>
-                        </li>
-                        <li>
+
                             <a class="btn btn-google" href="{{ path('region_edit', { 'id': region.id }) }}">edit</a>
-                        </li>
                     </ul>
                 </td>
             </tr>

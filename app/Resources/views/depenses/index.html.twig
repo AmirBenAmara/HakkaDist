@@ -2,7 +2,7 @@
 
 {% block body %}
     <h1>Depenses list</h1>
-    <a class="btn btn-success" href="{{ path('film_new') }}">Add Film</a>
+    <a class="btn btn-success" href="{{ path('depenses_new') }}">Add depense</a>
 
     <table id="example2" class="table table-bordered table-hover">
         <thead>
@@ -20,23 +20,16 @@
                 <td>{{ depense.libelle }}</td>
                 <td>{{ depense.valeur }}</td>
                 <td>
-                    <ul>
-                        <li>
+
                             <a class="btn btn-primary" href="{{ path('depenses_show', { 'id': depense.id }) }}">show</a>
-                        </li>
-                        <li>
+
                             <a class="btn btn-google" href="{{ path('depenses_edit', { 'id': depense.id }) }}">edit</a>
-                        </li>
-                    </ul>
+
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('depenses_new') }}">Create a new depense</a>
-        </li>
-    </ul>
+
 {% endblock %}

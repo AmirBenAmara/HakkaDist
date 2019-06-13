@@ -2,20 +2,16 @@
 
 {% block body %}
     <h1>Region edit</h1>
+    {{ form_start(delete_form) }}
+    <input class="btn btn-danger" style="float:right;" type="submit" value="X">
+    {{ form_end(delete_form) }}
+
+    <a class="btn btn-success" href="{{ path('region_index') }}">Back to the list</a>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input style="float:right;" class="btn btn-info" type="submit" value="Edit" />
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('region_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
 {% endblock %}

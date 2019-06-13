@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Film creation</h1>
+    <a style="float: right;" class="btn btn-success" href="{{ path('film_index') }}">Back to the list</a>
 
+    <h1>Film creation</h1>
+    <br>
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input style="float: right;" class="btn btn-info" type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('film_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
 {% endblock %}

@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <a style="float: right;" class="btn btn-success" href="{{ path('salle_index') }}">Back to the list</a>
+
     <h1>Salle creation</h1>
+<br>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input style="float: right;" class="btn btn-info" type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('salle_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
 {% endblock %}

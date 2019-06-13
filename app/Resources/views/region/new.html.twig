@@ -2,15 +2,12 @@
 
 {% block body %}
     <h1>Region creation</h1>
+    <a style="float: right" class="btn btn-success" href="{{ path('region_index') }}">Back to the list</a>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-info" type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('region_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
 {% endblock %}

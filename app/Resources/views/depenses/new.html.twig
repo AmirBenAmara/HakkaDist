@@ -3,14 +3,14 @@
 {% block body %}
     <h1>Depense creation</h1>
 
+    <a class="btn btn-success" href="{{ path('depenses_index') }}">Back to the list</a>
+
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-info" type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('depenses_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
+
+
 {% endblock %}
