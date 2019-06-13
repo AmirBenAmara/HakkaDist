@@ -13,7 +13,7 @@ class SeanceSalleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nbr_entree_seance')->add('recette_seance')->add('date_seance')->add('bordereau_salle');
+        $builder->add('nbr_entree_seance')->add('recette_seance')->add('date_seance');
     }/**
      * {@inheritdoc}
      */

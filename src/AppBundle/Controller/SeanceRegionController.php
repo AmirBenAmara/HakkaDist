@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\BordereauRegion;
 use AppBundle\Entity\SeanceRegion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -34,21 +35,23 @@ class SeanceRegionController extends Controller
     /**
      * Creates a new seanceRegion entity.
      *
-     * @Route("/new", name="seanceregion_new")
+     * @Route("/new/{id}", name="seanceregion_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request,BordereauRegion $brd)
     {
         $seanceRegion = new Seanceregion();
         $form = $this->createForm('AppBundle\Form\SeanceRegionType', $seanceRegion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $seanceRegion->setBordereauRegion($brd);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($seanceRegion);
             $em->flush();
 
-            return $this->redirectToRoute('seanceregion_show', array('id' => $seanceRegion->getId()));
+            return $this->redirectToRoute('bordereauregion_show', array('id' => $brd->getId()));
         }
 
         return $this->render('seanceregion/new.html.twig', array(

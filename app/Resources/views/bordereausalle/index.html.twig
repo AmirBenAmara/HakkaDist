@@ -1,37 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Bordereausalles list</h1>
+    <h1>Liste Bordereaux / Salles </h1>
+    <a style="float:right" class="btn btn-primary" href="{{ path('brdsalle_new') }}">Ajouter un bordereau</a>
 
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
+                <th>Film</th>
+                <th>Salle</th>
+                <th>Semaine</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for bordereauSalle in bordereauSalles %}
+
             <tr>
                 <td><a href="{{ path('brdsalle_show', { 'id': bordereauSalle.id }) }}">{{ bordereauSalle.id }}</a></td>
+
+                <td>{{ bordereauSalle.film.titre }}</td>
+            <td>{{ bordereauSalle.salle.nom }}</td>
+            <td></td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('brdsalle_show', { 'id': bordereauSalle.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('brdsalle_edit', { 'id': bordereauSalle.id }) }}">edit</a>
-                        </li>
-                    </ul>
+
+                            <a  class="btn btn-info" href="{{ path('brdsalle_show', { 'id': bordereauSalle.id }) }}">show</a>
+                            <a  class="btn btn-success" href="{{ path('brdsalle_edit', { 'id': bordereauSalle.id }) }}">edit</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('brdsalle_new') }}">Create a new bordereauSalle</a>
-        </li>
-    </ul>
+
 {% endblock %}

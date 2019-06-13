@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\BordereauSalle;
 use AppBundle\Entity\SeanceSalle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -34,21 +35,24 @@ class SeanceSalleController extends Controller
     /**
      * Creates a new seanceSalle entity.
      *
-     * @Route("/new", name="seancesalle_new")
+     * @Route("/new/{id}", name="seancesalle_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request,BordereauSalle $brd)
     {
         $seanceSalle = new Seancesalle();
         $form = $this->createForm('AppBundle\Form\SeanceSalleType', $seanceSalle);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $seanceSalle->setBordereauSalle($brd);
             $em = $this->getDoctrine()->getManager();
             $em->persist($seanceSalle);
             $em->flush();
 
-            return $this->redirectToRoute('seancesalle_show', array('id' => $seanceSalle->getId()));
+            return $this->redirectToRoute('brdsalle_show', array('id' => $brd->getId()));
+
         }
 
         return $this->render('seancesalle/new.html.twig', array(

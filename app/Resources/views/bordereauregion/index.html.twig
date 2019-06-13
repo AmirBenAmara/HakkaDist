@@ -1,37 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Bordereauregions list</h1>
+    <h1>Liste Bordereaux / Regions </h1>
+    <a style="float:right" class="btn btn-primary" href="{{ path('bordereauregion_new') }}">Ajouter un bordereau</a>
 
-    <table>
+
+    <table class="table table-striped ">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
+                <th>Film</th>
+                <th>Region</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for bordereauRegion in bordereauRegions %}
+
             <tr>
                 <td><a href="{{ path('bordereauregion_show', { 'id': bordereauRegion.id }) }}">{{ bordereauRegion.id }}</a></td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('bordereauregion_show', { 'id': bordereauRegion.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('bordereauregion_edit', { 'id': bordereauRegion.id }) }}">edit</a>
-                        </li>
-                    </ul>
+
+                <td>{{ bordereauRegion.film.titre }}</td>
+                <td>{{ bordereauRegion.region.nom }}</td>
+                <td></td>
+<td>
+                            <a  class="btn btn-info" href="{{ path('bordereauregion_show', { 'id': bordereauRegion.id }) }}">afficher</a>
+
+                            <a  class="btn btn-success" href="{{ path('bordereauregion_edit', { 'id': bordereauRegion.id }) }}">modifer</a>
+
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('bordereauregion_new') }}">Create a new bordereauRegion</a>
-        </li>
-    </ul>
+
 {% endblock %}
