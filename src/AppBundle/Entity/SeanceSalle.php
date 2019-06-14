@@ -38,7 +38,7 @@ class SeanceSalle
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_seance", type="date" , nullable=true)
+     * @ORM\Column(name="date_seance", type="datetime" , nullable=true)
      */
     private $date_seance;
 
