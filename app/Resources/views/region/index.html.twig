@@ -9,10 +9,10 @@
         <thead>
         <tr>
                 <th>Nom</th>
+                <th>Gouvernerat</th>
                 <th>Adresse</th>
                 <th>Mat_fiscale</th>
                 <th>Part_dist_region</th>
-                <th>Part_proprio_region</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,10 +20,10 @@
         {% for region in regions %}
             <tr>
                 <td>{{ region.nom }}</td>
+                <td>{{ region.gouvernerat }}</td>
                 <td>{{ region.adresse }}</td>
                 <td>{{ region.matfiscale }}</td>
                 <td>{{ region.partdistregion }}</td>
-                <td>{{ region.partproprioregion }}</td>
                 <td>
 
                             <a class="btn btn-primary" href="{{ path('region_show', { 'id': region.id }) }}">show</a>

@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class RegionType extends AbstractType
 {
@@ -13,7 +15,41 @@ class RegionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('adresse')->add('mat_fiscale')->add('part_dist_region')->add('part_proprio_region');
+        $builder
+            ->add('nom')
+            ->add('adresse')
+            ->add('mat_fiscale')
+            ->add('part_dist_region')
+            ->add('gouvernerat', ChoiceType::class, array(
+            'choices' => array(
+                'Ariana' => 'Ariana',
+                'Béja' => 'Béja',
+                'Ben Arous' => 'Ben Arous',
+                'Bizerte' => 'Bizerte',
+                'Gabès' =>  'Gabès',
+                'Gafsa' =>  'Gafsa',
+                'Jendouba' =>  'Jendouba',
+                'Kairouan' =>  'Kairouan',
+                'Kasserine' => 'Kasserine',
+                'Kébili' => 'Kébili',
+                'Le Kef' => 'Le Kef',
+                'Mahdia' => 'Mahdia',
+                'La Manouba' => 'La Manouba',
+                'Médenine' => 'Médenine',
+                'Monastir' => 'Monastir',
+                'Nabeul' => 'Nabeul',
+                'Sfax' => 'Sfax',
+                'Sidi Bouzid' => 'Sidi Bouzid',
+                'Siliana' => 'Siliana',
+                'Sousse' => 'Sousse',
+                'Tataouine' => 'Tataouine',
+                'Tozeur' => 'Tozeur',
+                'Zaghouan' => 'Zaghouan'
+
+            ),
+            'attr' => array('class' => 'dropdown')
+
+            ));
     }/**
      * {@inheritdoc}
      */
