@@ -29,6 +29,38 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <style>
+        .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+            background-color: #35363a  !important;
+
+        }
+        .skin-blue .main-header .navbar {
+            background-color: #242527 !important;
+        }
+        .skin-blue .main-header .logo {
+            background-color: #242527  !important;
+
+        }
+        .skin-blue .sidebar-menu > li.header {
+            background-color: #35363a  !important;
+            border-bottom: none !important;
+
+        }
+        .skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a, .skin-blue .sidebar-menu > li.menu-open > a {
+
+            background: #27272b;
+        }
+        .skin-blue .sidebar-menu > li > .treeview-menu {
+
+            background: none;
+        }
+        .skin-blue .sidebar-menu > li.active > a {
+            border-left-color: #d12610;
+        }
+        ul.sidebar-menu > li {
+            border-bottom: 1px solid #414247;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -106,7 +138,17 @@
 
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">MAIN NAVIGATION</li>
+                <li class="header"><br /><br /></li>
+                <li class="treeview active">
+                    <a href="{{ path('homepage') }}">
+                        <i class="fa fa-files-o"></i>
+                        <span>Home</span>
+                        <span class="pull-right-container">
+
+                        </span>
+                    </a>
+
+                </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Film</span>

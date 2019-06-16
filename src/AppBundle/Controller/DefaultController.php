@@ -27,7 +27,7 @@ class DefaultController extends Controller
         }
         else {
             return $this->render('default/index.html.twig');
-            
+
 
         }
 
