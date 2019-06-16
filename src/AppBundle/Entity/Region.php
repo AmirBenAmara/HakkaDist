@@ -36,6 +36,53 @@ class Region
     private $nom;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mat_fiscale", type="string", length=255, nullable=true)
+     */
+    private $mat_fiscale;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gouvernerat", type="string", length=255, nullable=true)
+     */
+    private $gouvernerat;
+
+    /**
+     * @return string
+     */
+    public function getGouvernerat()
+    {
+        return $this->gouvernerat;
+    }
+
+    /**
+     * @param string $gouvernerat
+     */
+    public function setGouvernerat($gouvernerat)
+    {
+        $this->gouvernerat = $gouvernerat;
+    }
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="part_dist_region", type="float")
+     */
+    private $part_dist_region;
+
+
+
+    /**
      * @return string
      */
     public function getNom()
@@ -51,19 +98,7 @@ class Region
         $this->nom = $nom;
     }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
-     */
-    private $adresse;
 
-     /**
-      * @var string
-      *
-      * @ORM\Column(name="mat_fiscale", type="string", length=255, nullable=false)
-      */
-    private $mat_fiscale;
 
     /**
      * @return string
@@ -130,19 +165,8 @@ class Region
     }
 
 
-     /**
-      * @var string
-      *
-      * @ORM\Column(name="part_dist_region", type="float")
-      */
-    private $part_dist_region;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="part_proprio_region", type="float")
-     */
-    private $part_proprio_region;
+
 
 
 

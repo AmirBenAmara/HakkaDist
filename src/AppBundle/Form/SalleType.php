@@ -13,7 +13,13 @@ class SalleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('adresse')->add('mat_fiscale')->add('part_dist_salle')->add('part_proprio_salle');
+        $builder
+            ->add('nom')
+            ->add('nomsociete')
+            ->add('adresse')
+            ->add('mat_fiscale')
+            ->add('part_dist_salle')
+            ->add('part_proprio_salle');
     }/**
      * {@inheritdoc}
      */

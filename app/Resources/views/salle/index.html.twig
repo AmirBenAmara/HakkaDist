@@ -9,6 +9,7 @@
         <thead>
         <tr>
                 <th>Nom</th>
+                <th>Nom Societe</th>
                 <th>Adresse</th>
                 <th>Mat_fiscale</th>
                 <th>Part_dist_salle</th>
@@ -20,6 +21,7 @@
         {% for salle in salles %}
             <tr>
                 <td>{{ salle.nom }}</td>
+                <td>{{ salle.nomsociete }}</td>
                 <td>{{ salle.adresse }}</td>
                 <td>{{ salle.matfiscale }}</td>
                 <td>{{ salle.partdistsalle }}</td>

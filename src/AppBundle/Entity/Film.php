@@ -59,12 +59,6 @@ class Film
      */
     private $part_prod_salle;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="part_prod_region", type="float" , nullable=true)
-     */
-    private $part_prod_region;
 
     /**
      * @var float

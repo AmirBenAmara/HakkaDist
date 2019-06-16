@@ -36,6 +36,13 @@ class Salle
      */
     private $nom;
 
+     /**
+      * @var string
+      *
+      * @ORM\Column(name="nomsociete", type="string", length=255, nullable=false)
+      */
+    private $nomsociete;
+
     /**
      * @var string
      *
@@ -175,6 +182,24 @@ class Salle
     {
         $this->borderauxSalles = $borderauxSalles;
     }
+
+    /**
+     * @return string
+     */
+    public function getNomsociete()
+    {
+        return $this->nomsociete;
+    }
+
+    /**
+     * @param string $nomsociete
+     */
+    public function setNomsociete($nomsociete)
+    {
+        $this->nomsociete = $nomsociete;
+    }
+
+
 
     function __toString()
     {
