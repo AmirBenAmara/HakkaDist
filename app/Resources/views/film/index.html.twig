@@ -1,12 +1,31 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' ) }}">
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css' ) }}">
+
+    <style>
+        .dataTables_filter input {
+            border: 1px solid #555;
+
+            border-radius: 1px;
+            box-sizing: border-box;
+        }
+    </style>
+
+{% endblock %}
+
 {% block body %}
     <br>
     <h1>Films list</h1>
 
-    <a class="btn btn-success" href="{{ path('film_new') }}">Add Film</a>
+    Ajouter un nouveau film : <a class="btn btn-success" href="{{ path('film_new') }}">Ajouter Film</a>
 
-    <table id="example2" class="table table-bordered table-hover">
+    <br>
+    <br>
+    <table id="example" class="display" style="width:100%">
         <thead>
         <tr>
             <th>Image</th>
@@ -49,6 +68,51 @@
         {% endfor %}
         </tbody>
     </table>
+
+
+{% endblock %}
+{% block javascripts %}
+
+
+
+
+
+    <script src="{{ asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js' ) }}"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                dom: 'Bfrtip',
+                buttons: ['copy','excel', 'csv','pdf','print'],
+
+                initComplete: function () {
+                    var btns = $('.dt-button');
+                    btns.addClass('btn btn-primary btn-sm');
+                    btns.removeClass('dt-button');
+
+                }
+            } );
+        } );
+
+
+    </script>
+
 
 
 {% endblock %}
