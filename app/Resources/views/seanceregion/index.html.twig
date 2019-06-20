@@ -1,12 +1,26 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
 
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' ) }}">
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css' ) }}">
+
+    <style>
+        .dataTables_filter input {
+            border: 1px solid #555;
+
+            border-radius: 1px;
+            box-sizing: border-box;
+        }
+    </style>
+
+{% endblock %}
 {% block body %}
-    <h1>Seanceregions list</h1>
+    <h1>Seance_regions list</h1>
 
-    <table>
+    <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nbr_entree_seance</th>
                 <th>Recette_seance</th>
                 <th>Date_seance</th>
@@ -16,7 +30,6 @@
         <tbody>
         {% for seanceRegion in seanceRegions %}
             <tr>
-                <td><a href="{{ path('seanceregion_show', { 'id': seanceRegion.id }) }}">{{ seanceRegion.id }}</a></td>
                 <td>{{ seanceRegion.nbrentreeseance }}</td>
                 <td>{{ seanceRegion.recetteseance }}</td>
                 <td>{% if seanceRegion.dateseance %}{{ seanceRegion.dateseance|date('Y-m-d') }}{% endif %}</td>
@@ -40,4 +53,49 @@
             <a href="{{ path('seanceregion_new') }}">Create a new seanceRegion</a>
         </li>
     </ul>
+{% endblock %}
+{% block javascripts %}
+
+
+
+
+
+    <script src="{{ asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js' ) }}"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                dom: 'Bfrtip',
+                buttons: ['copy','excel', 'csv','pdf','print'],
+
+                initComplete: function () {
+                    var btns = $('.dt-button');
+                    btns.addClass('btn btn-primary btn-sm');
+                    btns.removeClass('dt-button');
+
+                }
+            } );
+        } );
+
+
+    </script>
+
+
+
 {% endblock %}
