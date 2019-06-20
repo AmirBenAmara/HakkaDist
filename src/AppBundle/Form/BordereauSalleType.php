@@ -16,7 +16,7 @@ class BordereauSalleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('film')//, AutocompleteType::class, ['class' => Film::class])
+            ->add('film', AutocompleteType::class,  ['class' => 'AppBundle:Film'])
             ->add('salle')// ,AutocompleteType::class, ['class' => Salle::clas1s])
             ->add('semaine');
     }/**

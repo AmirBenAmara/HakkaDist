@@ -320,7 +320,7 @@ class Film
 
     public function __toString()
     {
-        return $this->getTitre();
+        return $this->titre;
     }
 
     /**

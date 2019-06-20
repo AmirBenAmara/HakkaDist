@@ -6,6 +6,10 @@ parameters:
 
 
 services:
+    app.repository.film:
+        class: AppBundle\Repository\FilmRepository
+        factory: ['@doctrine', getRepository]
+        arguments: ['AppBundle:Film']
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services
@@ -14,7 +18,7 @@ services:
         autoconfigure: true
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
-        public: false
+        public: true
 
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

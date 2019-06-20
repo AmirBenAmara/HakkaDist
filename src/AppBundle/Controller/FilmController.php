@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Film;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Film controller.
@@ -57,21 +59,6 @@ class FilmController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a film entity.
-     *
-     * @Route("/{id}", name="film_show")
-     * @Method("GET")
-     */
-    public function showAction(Film $film)
-    {
-        $deleteForm = $this->createDeleteForm($film);
-
-        return $this->render('film/show.html.twig', array(
-            'film' => $film,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Displays a form to edit an existing film entity.
@@ -101,7 +88,7 @@ class FilmController extends Controller
     /**
      * Deletes a film entity.
      *
-     * @Route("/{id}", name="film_delete")
+     * @Route("/delete/{id}", name="film_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Film $film)
@@ -133,4 +120,51 @@ class FilmController extends Controller
             ->getForm()
         ;
     }
+
+
+    /**
+     * @Route("/search-film", name="search_film")
+     * @Method({"GET","POST"})
+     */
+    public function searchAction(Request $request)
+    {
+        $qs = $request->query->get('q');
+
+        $films = $this->get('app.repository.film')->findLike($qs);
+
+        return $this->render('film/search.json.twig', ['films' => $films]);
+    }
+    /**
+     * @Route("/get-film/{id}", name="get_film")
+     * @ParamConverter("post", class="SensioBlogBundle:Post")
+     * @Method("GET")
+     */
+    public function getAction($id = null)
+    {
+            $em = $this->getDoctrine()->getManager();
+            $film = $em->getRepository('AppBundle:Film')->find($id);
+        if (is_null($film)) {
+            throw $this->createNotFoundException();
+        }
+        return new Response($film->getTitre());
+
+    }
+
+
+    /**
+     * Finds and displays a film entity.
+     *
+     * @Route("/{id}", name="film_show")
+     * @Method("GET")
+     */
+    public function showAction(Film $film)
+    {
+        $deleteForm = $this->createDeleteForm($film);
+
+        return $this->render('film/show.html.twig', array(
+            'film' => $film,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
 }

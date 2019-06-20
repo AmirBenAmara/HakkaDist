@@ -1,0 +1,4 @@
+[{% for film in films -%}
+    {{ {id: film.id, text: film.__toString}|json_encode|raw }}
+    {%- if not loop.last %},{% endif -%}
+    {%- endfor %}]

@@ -12,14 +12,16 @@ class FilmRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findLike( $name)
     {
-        return $this
-            ->createQueryBuilder('a')
-            ->where('a.titre LIKE :name')
-            ->setParameter('name', "%$name%")
-            ->orderBy('a.titre')
-            ->setMaxResults(10)
+       return $this->createQueryBuilder('f')
+            ->where('f.titre LIKE :name')
+            ->setParameter('name', '%'.$name.'%')
             ->getQuery()
-            ->execute()
-            ;
+            ->execute();
+
+
+
+
+
+
     }
 }
