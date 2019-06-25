@@ -49,6 +49,28 @@ class BordereauSalle
      */
     private $semaine;
 
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="recette", type="float" ,nullable=true)
+     */
+    private $recette;
+
+    /**
+     * @return float
+     */
+    public function getRecette()
+    {
+        return $this->recette;
+    }
+
+    /**
+     * @param float $recette
+     */
+    public function setRecette($recette)
+    {
+        $this->recette = $recette;
+    }
 
 
 

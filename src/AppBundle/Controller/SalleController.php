@@ -24,6 +24,8 @@ class SalleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+
+
         $salles = $em->getRepository('AppBundle:Salle')->findAll();
 
         return $this->render('salle/index.html.twig', array(
@@ -66,6 +68,8 @@ class SalleController extends Controller
     public function showAction(Salle $salle)
     {
         $deleteForm = $this->createDeleteForm($salle);
+
+
 
         return $this->render('salle/show.html.twig', array(
             'salle' => $salle,
