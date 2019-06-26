@@ -6,7 +6,8 @@ use AppBundle\Entity\BordereauSalle;
 use AppBundle\Entity\SeanceSalle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Seancesalle controller.
@@ -48,8 +49,10 @@ class SeanceSalleController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $seanceSalle->setBordereauSalle($brd);
             $em = $this->getDoctrine()->getManager();
+
             $em->persist($seanceSalle);
             $em->flush();
+            $this->updateBordereauRecette($brd);
 
             return $this->redirectToRoute('brdsalle_show', array('id' => $brd->getId()));
 
@@ -91,8 +94,12 @@ class SeanceSalleController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $brd = $this->getDoctrine()->getManager()->getRepository('AppBundle:BordereauSalle')
+                ->findOneBy(array('id'=>$seanceSalle->getBordereauSalle()->getId()));
 
-            return $this->redirectToRoute('seancesalle_edit', array('id' => $seanceSalle->getId()));
+            $this->updateBordereauRecette($brd);
+
+            return $this->redirectToRoute('brdsalle_show', array('id' => $brd->getId()));
         }
 
         return $this->render('seancesalle/edit.html.twig', array(
@@ -105,7 +112,7 @@ class SeanceSalleController extends Controller
     /**
      * Deletes a seanceSalle entity.
      *
-     * @Route("/{id}", name="seancesalle_delete")
+     * @Route("/delete/{id}", name="seancesalle_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, SeanceSalle $seanceSalle)
@@ -115,12 +122,16 @@ class SeanceSalleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $brd = $this->getDoctrine()->getManager()->getRepository('AppBundle:BordereauSalle')
+                ->findOneBy(array('id'=>$seanceSalle->getBordereauSalle()->getId()));
+
+
             $em->remove($seanceSalle);
             $em->flush();
+            $this->updateBordereauRecette($brd);
         }
 
-        return $this->redirectToRoute('seancesalle_index');
-    }
+        return $this->redirectToRoute('brdsalle_show', array('id' => $brd->getId()));    }
 
     /**
      * Creates a form to delete a seanceSalle entity.
@@ -136,6 +147,20 @@ class SeanceSalleController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function updateBordereauRecette(BordereauSalle $brd)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $seances = $em->getRepository('AppBundle:SeanceSalle')->findBy(array('bordereau_salle'=>$brd->getId()));
+        $sum = 0;
+        foreach ($seances as $seance){
+            $sum += $seance->getRecetteSeance();
+        }
+        $brd->setRecette($sum);
+        $em->persist($brd);
+        $em->flush();
+
     }
 
 
