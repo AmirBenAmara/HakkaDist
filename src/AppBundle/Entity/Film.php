@@ -105,6 +105,33 @@ class Film
     private $depenses;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="recette_film", type="float" ,nullable=true)
+     */
+    private $recette_film;
+
+
+
+    /**
+     * @return float
+     */
+    public function getRecetteFilm()
+    {
+        return $this->recette_film;
+    }
+
+    /**
+     * @param float $recette_film
+     */
+    public function setRecetteFilm($recette_film)
+    {
+        $this->recette_film = $recette_film;
+    }
+
+
+
+    /**
      * @return int
      */
     public function getId()

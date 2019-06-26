@@ -57,6 +57,31 @@ class Region
     private $gouvernerat;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="recette_region", type="float" ,nullable=true)
+     */
+    private $recette_region;
+
+    /**
+     * @return float
+     */
+    public function getRecetteRegion()
+    {
+        return $this->recette_region;
+    }
+
+    /**
+     * @param float $recette_region
+     */
+    public function setRecetteRegion($recette_region)
+    {
+        $this->recette_region = $recette_region;
+    }
+
+
+
+    /**
      * @return string
      */
     public function getGouvernerat()
@@ -200,6 +225,8 @@ class Region
     {
         return $this->nom;
     }
+
+
 
 
 }

@@ -28,6 +28,11 @@ class FilmController extends Controller
 
         $films = $em->getRepository('AppBundle:Film')->findAll();
 
+        foreach ($films as $film){
+            $film->setRecetteFilm($this->calculateRecetteFilm($film));
+            $film->setDepensesTotal($this->calculateDepencesFilm($film));
+        }
+
         return $this->render('film/index.html.twig', array(
             'films' => $films,
         ));
@@ -165,6 +170,45 @@ class FilmController extends Controller
             'film' => $film,
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    public function calculateRecetteFilm(Film $film){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $RAW_QUERY = 'SELECT SUM(recette) FROM bordereau_salle where bordereau_salle.film_id = :film_id ;';
+        $RAW_QUERY1 = 'SELECT SUM(recette) FROM bordereau_region where bordereau_region.film_id = :film_id ;';
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement1 = $em->getConnection()->prepare($RAW_QUERY1);
+
+        $statement->bindValue('film_id', $film->getId() );
+        $statement1->bindValue('film_id', $film->getId() );
+
+        $statement->execute();
+        $statement1->execute();
+
+        $result = $statement->fetchColumn(0);
+        $result1 = $statement->fetchColumn(0);
+
+        return $result + $result1;
+    }
+
+    public function calculateDepencesFilm(Film $film){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $RAW_QUERY = 'SELECT SUM(valeur) FROM depenses where depenses.film_id = :film_id ;';
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+
+        $statement->bindValue('film_id', $film->getId() );
+
+        $statement->execute();
+
+        $result = $statement->fetchColumn(0);
+
+        return $result ;
     }
 
 }

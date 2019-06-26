@@ -24,9 +24,11 @@ class SalleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-
-
         $salles = $em->getRepository('AppBundle:Salle')->findAll();
+
+        foreach ($salles as $salle){
+            $salle->setRecetteSalle($this->calculateRecetteSalle($salle));
+        }
 
         return $this->render('salle/index.html.twig', array(
             'salles' => $salles,
@@ -136,5 +138,21 @@ class SalleController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function calculateRecetteSalle(Salle $salle){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $RAW_QUERY = 'SELECT SUM(recette) FROM bordereau_salle where bordereau_salle.salle_id = :salle_id ;';
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue('salle_id', $salle->getId());
+
+        $statement->execute();
+
+        $result = $statement->fetchColumn(0);
+
+        return $result;
     }
 }

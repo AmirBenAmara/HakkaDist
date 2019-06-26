@@ -58,6 +58,16 @@ class Salle
     private $mat_fiscale;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="recette_salle", type="float")
+     */
+    private $recette_salle;
+
+
+
+
+    /**
      * @return string
      */
     public function getAdresse()
@@ -198,6 +208,23 @@ class Salle
     {
         $this->nomsociete = $nomsociete;
     }
+
+
+    /**
+     * @return float
+     */
+    public function getRecetteSalle()
+    {
+        return $this->recette_salle;
+    }/**
+     * @param float $recette_salle
+     */
+    public function setRecetteSalle($recette_salle)
+    {
+        $this->recette_salle = $recette_salle;
+    }
+
+
 
 
 

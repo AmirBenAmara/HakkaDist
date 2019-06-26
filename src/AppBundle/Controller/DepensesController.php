@@ -101,7 +101,7 @@ class DepensesController extends Controller
     /**
      * Deletes a depense entity.
      *
-     * @Route("/{id}", name="depenses_delete")
+     * @Route("/delete/{id}", name="depenses_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Depenses $depense)

@@ -26,6 +26,10 @@ class RegionController extends Controller
 
         $regions = $em->getRepository('AppBundle:Region')->findAll();
 
+        foreach ($regions as $region){
+            $region->setRecetteRegion($this->calculateRecetteRegion($region));
+        }
+
         return $this->render('region/index.html.twig', array(
             'regions' => $regions,
         ));
@@ -132,5 +136,21 @@ class RegionController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function calculateRecetteRegion(Region $region){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $RAW_QUERY = 'SELECT SUM(recette) FROM bordereau_region where bordereau_region.region_id = :region_id ;';
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue('region_id', $region->getId());
+
+        $statement->execute();
+
+        $result = $statement->fetchColumn(0);
+
+        return $result;
     }
 }

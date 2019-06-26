@@ -29,7 +29,8 @@
                 <th>Gouvernerat</th>
                 <th>Adresse</th>
                 <th>Mat_fiscale</th>
-                <th>Part_dist_region</th>
+                 <th>Part_dist_region</th>
+                <th>recette_region</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -41,6 +42,7 @@
                 <td>{{ region.adresse }}</td>
                 <td>{{ region.matfiscale }}</td>
                 <td>{{ region.partdistregion }}</td>
+                <td>{{ region.recetteregion }}</td>
                 <td>
 
                             <a class="btn btn-primary" href="{{ path('region_show', { 'id': region.id }) }}">show</a>
