@@ -74,10 +74,10 @@
                 <td>{% if seanceSalle.dateseance %}{{ seanceSalle.dateseance|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
 
-                    <a class="btn btn-info" href="{{ path('seancesalle_show', { 'id': seanceSalle.id }) }}">afficher</a>
+                    <a class="btn btn-info" href="{{ path('seanceregion_show', { 'id': seanceSalle.id }) }}">afficher</a>
 
 
-                    <a class="btn btn-success" href="{{ path('seancesalle_edit', { 'id': seanceSalle.id }) }}">modifier</a>
+                    <a class="btn btn-success" href="{{ path('seanceregion_edit', { 'id': seanceSalle.id }) }}">modifier</a>
 
                 </td>
             </tr>
