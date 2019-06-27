@@ -44,8 +44,9 @@ class BordereauSalle
     private $seances;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Semaine" , inversedBy="borderaux_salles")
-     * @ORM\JoinColumn(name="semaine_id", referencedColumnName="id")
+     * @var integer
+     *
+     * @ORM\Column(name="semaine", type="integer" ,nullable=true)
      */
     private $semaine;
 
