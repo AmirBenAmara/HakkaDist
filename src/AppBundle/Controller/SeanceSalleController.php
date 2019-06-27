@@ -158,6 +158,7 @@ class SeanceSalleController extends Controller
             $sum += $seance->getRecetteSeance();
         }
         $brd->setRecette($sum);
+        $brd->setPartSalle($brd->getRecette() * ($brd->getPourcentageSalle() / 100));
         $em->persist($brd);
         $em->flush();
 

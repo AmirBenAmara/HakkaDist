@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' ) }}">
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css' ) }}">
+
+    <style>
+        .dataTables_filter input {
+            border: 1px solid #555;
+
+            border-radius: 1px;
+            box-sizing: border-box;
+        }
+    </style>
+
+{% endblock %}
+{% block body %}
+    <h1>Depenses Total</h1>
+
+    <br>
+    <br>
+    <table  id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Libelle</th>
+            <th>film</th>
+            <th>Valeur</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for depense in depenses %}
+            <tr>
+                <td><img src="{{ vich_uploader_asset(depense, 'imageFile') }}" style="height: 50px ; width: 40px"></td>
+                <td>{{ depense.libelle }}</td>
+                <td>{{ depense.film }}</td>
+                <td>{{ depense.valeur }}</td>
+
+
+                <td>
+
+                            <a class="btn btn-primary" href="{{ path('depenses_show', { 'id': depense.id }) }}">show</a>
+
+                            <a class="btn btn-google" href="{{ path('depenses_edit', { 'id': depense.id }) }}">edit</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+
+
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <th colspan="4" style="text-align:right">Total: </th>
+            <th></th>
+        </tr>
+        </tfoot>
+    </table>
+
+
+{% endblock %}
+{% block javascripts %}
+
+
+
+
+
+    <script src="{{ asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js' ) }}"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    { extend: 'copy', footer: true },
+                    { extend: 'excel', footer: true },
+                    { extend: 'csv', footer: true },
+                    { extend: 'pdf', footer: true },
+                    { extend: 'print', footer: true }
+                ],
+                initComplete: function () {
+                    var btns = $('.dt-button');
+                    btns.addClass('btn btn-primary btn-sm');
+                    btns.removeClass('dt-button');
+
+                },
+
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column( 3 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+
+                    // Total over this page
+                    pageTotal = api
+                        .column( 3, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+
+                    // Update footer
+                    $( api.column( 3 ).footer() ).html(
+                        'Total : '+pageTotal +'dt ( Total Tous Les Pages :'+ total +' dt )'
+
+                    );
+
+                }
+
+
+            } );
+        } );
+
+
+    </script>
+
+
+
+
+
+{% endblock %}

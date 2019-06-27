@@ -31,10 +31,9 @@
             <th>Image</th>
             <th>Titre</th>
             <th>Entree_total</th>
-            <th>Part_dist_salle</th>
-            <th>Part_dist_region</th>
-            <th>Part_prod_salle</th>
+
             <th>Depenses_total</th>
+            <th>Recettes_total</th>
             <th>Date_sortie</th>
             <th>Actions</th>
         </tr>
@@ -47,10 +46,9 @@
                 <td><img src="{{ vich_uploader_asset(film, 'imageFile') }}" style="height: 50px ; width: 40px"></td>
                 <td>{{ film.titre }}</td>
                 <td>{{ film.entreetotal }}</td>
-                <td>{{ film.partdistsalle }}</td>
-                <td>{{ film.partdistregion }}</td>
-                <td>{{ film.partprodsalle }}</td>
+
                 <td>{{ film.depensestotal }}</td>
+                <td>{{ film.recettefilm }}</td>
                 <td>{{ film.datesortie|date('Y-m-d') }}</td>
                 <td>
 

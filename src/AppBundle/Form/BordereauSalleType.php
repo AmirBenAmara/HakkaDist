@@ -18,7 +18,8 @@ class BordereauSalleType extends AbstractType
         $builder
             ->add('film', AutocompleteType::class,  ['class' => 'AppBundle:Film'])
             ->add('salle')// ,AutocompleteType::class, ['class' => Salle::clas1s])
-            ->add('semaine');
+            ->add('semaine')
+            ->add('pourcentage_salle');
     }/**
      * {@inheritdoc}
      */
