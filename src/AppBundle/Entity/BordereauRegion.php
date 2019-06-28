@@ -42,8 +42,9 @@ class BordereauRegion
     private $seances;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Semaine" , inversedBy="borderaux_regions")
-     * @ORM\JoinColumn(name="semaine_id", referencedColumnName="id")
+     * @var integer
+     *
+     * @ORM\Column(name="semaine", type="float" ,nullable=true)
      */
     private $semaine;
 

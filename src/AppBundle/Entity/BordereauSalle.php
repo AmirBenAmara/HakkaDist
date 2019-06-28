@@ -44,8 +44,9 @@ class BordereauSalle
     private $seances;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Semaine" , inversedBy="borderaux_salles")
-     * @ORM\JoinColumn(name="semaine_id", referencedColumnName="id")
+     * @var integer
+     *
+     * @ORM\Column(name="semaine", type="integer" ,nullable=true)
      */
     private $semaine;
 
@@ -55,6 +56,21 @@ class BordereauSalle
      * @ORM\Column(name="recette", type="float" ,nullable=true)
      */
     private $recette;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="pourcentage_salle", type="float" ,nullable=true)
+     */
+    private $pourcentage_salle;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="part_salle", type="float" ,nullable=true)
+     */
+    private $part_salle;
+
 
     /**
      * @return float
@@ -152,6 +168,38 @@ class BordereauSalle
     public function setSemaine($semaine)
     {
         $this->semaine = $semaine;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPourcentageSalle()
+    {
+        return $this->pourcentage_salle;
+    }
+
+    /**
+     * @param float $pourcentage_salle
+     */
+    public function setPourcentageSalle($pourcentage_salle)
+    {
+        $this->pourcentage_salle = $pourcentage_salle;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPartSalle()
+    {
+        return $this->part_salle;
+    }
+
+    /**
+     * @param float $part_salle
+     */
+    public function setPartSalle($part_salle)
+    {
+        $this->part_salle = $part_salle;
     }
 
 

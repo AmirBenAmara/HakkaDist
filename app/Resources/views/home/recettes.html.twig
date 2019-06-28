@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block stylesheets %}
 
     <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' ) }}">
@@ -16,55 +17,16 @@
     </style>
 
 {% endblock %}
-
 {% block body %}
-    <br>
-    <h1>Films list</h1>
-
-    Ajouter un nouveau film : <a class="btn btn-success" href="{{ path('film_new') }}">Ajouter Film</a>
+    <h1>Recettes Total</h1>
 
     <br>
     <br>
-    <table id="example" class="display" style="width:100%">
-        <thead>
-        <tr>
-            <th>Image</th>
-            <th>Titre</th>
-            <th>Entree_total</th>
-
-            <th>Depenses_total</th>
-            <th>Recettes_total</th>
-            <th>Date_sortie</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
+    <table  id="example" class="display" style="width:100%">
 
 
-        <tbody>
-        {% for film in films %}
-            <tr>
-                <td><img src="{{ vich_uploader_asset(film, 'imageFile') }}" style="height: 50px ; width: 40px"></td>
-                <td>{{ film.titre }}</td>
-                <td>{{ film.entreetotal }}</td>
-
-                <td>{{ film.depensestotal }}</td>
-                <td>{{ film.recettefilm }}</td>
-                <td>{{ film.datesortie|date('Y-m-d') }}</td>
-                <td>
 
 
-                    <a href="{{ path('film_show', { 'id': film.id }) }}"
-                       class="btn btn-primary">show</a>
-
-
-                    <a href="{{ path('film_edit', { 'id': film.id }) }}"
-                       class="btn btn-google">edit</a>
-
-
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
     </table>
 
 
@@ -97,19 +59,29 @@
         $(document).ready(function() {
             $('#example').DataTable( {
                 dom: 'Bfrtip',
-                buttons: ['copy','excel', 'csv','pdf','print'],
-
+                buttons: [
+                    { extend: 'copy', footer: true },
+                    { extend: 'excel', footer: true },
+                    { extend: 'csv', footer: true },
+                    { extend: 'pdf', footer: true },
+                    { extend: 'print', footer: true }
+                ],
                 initComplete: function () {
                     var btns = $('.dt-button');
                     btns.addClass('btn btn-primary btn-sm');
                     btns.removeClass('dt-button');
 
-                }
+                },
+
+
+
             } );
         } );
 
 
     </script>
+
+
 
 
 
