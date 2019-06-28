@@ -13,7 +13,10 @@ class SeanceRegionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nbr_entree_seance')->add('recette_seance')->add('date_seance');
+        $builder->add('nbr_entree_seance')->add('recette_seance')->add('date_seance',null, array(
+            'widget' => 'single_text',
+            'input' => 'datetime',
+            'format' => 'yyyy-MM-dd HH:mm',));
     }/**
      * {@inheritdoc}
      */

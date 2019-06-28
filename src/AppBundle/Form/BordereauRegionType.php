@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Form;
+use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +14,9 @@ class BordereauRegionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('film')->add('region')->add('semaine');
+        $builder->add('film', AutocompleteType::class,  ['class' => 'AppBundle:Film'])
+            ->add('region')
+            ->add('semaine');
     }/**
      * {@inheritdoc}
      */

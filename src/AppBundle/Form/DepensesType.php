@@ -5,7 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use Vich\UploaderBundle\Form\Type\VichImageType;use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
+
 
 
 class DepensesType extends AbstractType
@@ -17,8 +18,9 @@ class DepensesType extends AbstractType
     {
         $builder
             ->add('libelle')
+            ->add('film', AutocompleteType::class,  ['class' => 'AppBundle:Film'])
+
             ->add('valeur')
-            ->add('film')
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true
