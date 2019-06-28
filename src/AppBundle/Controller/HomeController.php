@@ -40,9 +40,13 @@ class HomeController extends Controller
      */
     public function entreesAction()
     {
+        $em = $this->getDoctrine()->getManager();
 
+        $bordereauSalles = $em->getRepository('AppBundle:BordereauSalle')->findBy(array(),array('film'=>'asc','salle'=>'asc'));
 
-        return $this->render('home/entrees.html.twig');
+        return $this->render('home/entrees.html.twig', array(
+            'bordereauSalles' => $bordereauSalles,
+        ));
     }
 
     /**

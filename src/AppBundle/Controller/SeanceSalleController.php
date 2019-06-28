@@ -154,10 +154,13 @@ class SeanceSalleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $seances = $em->getRepository('AppBundle:SeanceSalle')->findBy(array('bordereau_salle'=>$brd->getId()));
         $sum = 0;
+        $nb =0;
         foreach ($seances as $seance){
             $sum += $seance->getRecetteSeance();
+            $nb += $seance->getNbrEntreeSeance();
         }
         $brd->setRecette($sum);
+        $brd->setNbEntrees($nb);
         $brd->setPartSalle($brd->getRecette() * ($brd->getPourcentageSalle() / 100));
         $em->persist($brd);
         $em->flush();

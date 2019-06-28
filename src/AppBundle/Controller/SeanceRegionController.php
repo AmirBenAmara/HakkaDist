@@ -6,7 +6,8 @@ use AppBundle\Entity\BordereauRegion;
 use AppBundle\Entity\SeanceRegion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Seanceregion controller.
@@ -38,7 +39,7 @@ class SeanceRegionController extends Controller
      * @Route("/new/{id}", name="seanceregion_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request,BordereauRegion $brd)
+    public function newAction(Request $request, BordereauRegion $brd)
     {
         $seanceRegion = new Seanceregion();
         $form = $this->createForm('AppBundle\Form\SeanceRegionType', $seanceRegion);
@@ -90,8 +91,8 @@ class SeanceRegionController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $brd =  $this->getDoctrine()->getManager()->getRepository('AppBundle:BordereauRegion')
-                ->findOneBy(array('id'=>$seanceRegion->getBordereauRegion()->getId()));
+            $brd = $this->getDoctrine()->getManager()->getRepository('AppBundle:BordereauRegion')
+                ->findOneBy(array('id' => $seanceRegion->getBordereauRegion()->getId()));
             $this->updateBordereauRecette($brd);
             return $this->redirectToRoute('seanceregion_edit', array('id' => $seanceRegion->getId()));
         }
@@ -117,7 +118,7 @@ class SeanceRegionController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $brd = $em->getRepository('AppBundle:BordereauRegion')
-                ->findOneBy(array('id'=>$seanceRegion->getBordereauRegion()->getId()));
+                ->findOneBy(array('id' => $seanceRegion->getBordereauRegion()->getId()));
             $em->remove($seanceRegion);
             $em->flush();
 
@@ -140,19 +141,23 @@ class SeanceRegionController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('seanceregion_delete', array('id' => $seanceRegion->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 
 
     private function updateBordereauRecette(BordereauRegion $brd)
     {
         $em = $this->getDoctrine()->getManager();
-        $seances = $em->getRepository('AppBundle:SeanceRegion')->findBy(array('bordereau_region'=>$brd->getId()));
+        $seances = $em->getRepository('AppBundle:SeanceRegion')->findBy(array('bordereau_region' => $brd->getId()));
         $sum = 0;
-        foreach ($seances as $seance){
+        $nb = 0;
+        foreach ($seances as $seance) {
+
+
             $sum += $seance->getRecetteSeance();
+            $nb += $seance->getNbrEntreeSeance();
         }
+        $brd->setRecette($sum);
         $brd->setRecette($sum);
         $em->persist($brd);
         $em->flush();
