@@ -23,18 +23,31 @@
     <br>
     <br>
     <table  id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Nom_Film</th>
+            <th>Nom_Salle</th>
+            <th>Recettes_Salles</th>
+            <th>Part_Distribuable</th>
 
-
-
+        </tr>
+        </thead>
+        <tbody>
+        {% for bordereauSalle in bordereauSalles %}
+            <tr class="roww">
+                <td class="id1">{{ bordereauSalle.film.titre }}</td>
+                <td class="id2">{{ bordereauSalle.salle.nom }}</td>
+                <td class="val1">{{ bordereauSalle.recette }}</td>
+                <td class="val2">{{ bordereauSalle.recette -   (bordereauSalle.recette * (bordereauSalle.pourcentagesalle / 100)) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
 
     </table>
 
 
 {% endblock %}
 {% block javascripts %}
-
-
-
 
 
     <script src="{{ asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' ) }}"></script>
@@ -72,12 +85,38 @@
                     btns.removeClass('dt-button');
 
                 },
+                "language": {
+                    "search": "Entrer le Nom du Film :"
+                }
 
 
 
 
             } );
         } );
+
+
+
+        $('.roww').each(function() {
+            var thisId1 = $(this).find('.id1').text();
+            var thisId2 = $(this).find('.id2').text();
+            var sumVal1 = parseFloat($(this).find('.val1').text());
+            var sumVal2 = parseFloat($(this).find('.val2').text());
+
+            var $rowsToGroup = $(this).nextAll('tr').filter(function() {
+                return ($(this).find('.id1').text() === thisId1 && $(this).find('.id2').text() === thisId2);
+            });
+
+            $rowsToGroup.each(function() {
+                sumVal1 += parseFloat($(this).find('.val1').text());
+                sumVal2 += parseFloat($(this).find('.val2').text());
+                $(this).remove();
+            });
+
+            $(this).find('.val1').text(sumVal1);
+            $(this).find('.val2').text(sumVal2);
+        });
+
 
 
     </script>
