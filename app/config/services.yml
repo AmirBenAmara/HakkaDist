@@ -4,8 +4,9 @@ parameters:
     #parameter_name: value
     app.path.product_images: /uploads/images/products
 
-
 services:
+
+
     app.repository.film:
         class: AppBundle\Repository\FilmRepository
         factory: ['@doctrine', getRepository]

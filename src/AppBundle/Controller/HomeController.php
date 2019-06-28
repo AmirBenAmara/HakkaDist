@@ -71,9 +71,13 @@ class HomeController extends Controller
      */
     public function partDistribuableAction()
     {
+        $em = $this->getDoctrine()->getManager();
 
+        $bordereauSalles = $em->getRepository('AppBundle:BordereauSalle')->findAll();
 
-        return $this->render('home/partDistribuable.html.twig');
+        return $this->render('home/partDistribuable.html.twig', array(
+            'bordereauSalles' => $bordereauSalles,
+        ));
     }
 
 
