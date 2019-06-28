@@ -23,7 +23,10 @@ class FilmType extends AbstractType
             ->add('part_prod_salle')
             ->add('part_prod_region')
             ->add('depenses_total')*/
-            ->add('date_sortie')
+            ->add('date_sortie',null, array(
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'format' => 'yyyy-MM-dd',))
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true

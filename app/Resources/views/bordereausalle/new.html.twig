@@ -26,5 +26,22 @@
 {% block javascripts %}
     <script src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.js"></script>
     <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-select2.js') }}"></script>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script>
+        (function () {
+            const options = {
+                url_list: $('#url-list').attr('href'),
+                url_get: $('#url-get').attr('href'),
+                otherOptions: {
+                    minimumInputLength: 2,
+                    theme: 'boostrap',
+                    formatNoMatches: 'No records found.',
+                    formatSearching: 'Searching ...',
+                    formatInputTooShort: 'Insert at least 2 character'
+                }
+            };
+            $('#appbundle_bordereausalle_film').autocompleter(options);
+
+
+        }());
+    </script>
 {% endblock %}
