@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-
 {% block stylesheets %}
 
     <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' ) }}">
 
-    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css' ) }}">
+    <link rel="stylesheet"
+          href="{{ asset('https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css' ) }}">
 
     <style>
         .dataTables_filter input {
@@ -16,25 +16,96 @@
         }
     </style>
 
+
 {% endblock %}
 {% block body %}
-    <h1>Recettes Total</h1>
-
+    <h1>Recettes </h1>
+    {% set max = 1 %}
+    {% set first = "" %}
+    {% for brd in bordereauSalles %}
+        {% if loop.first %}
+            {% set first = brd.film.titre %}
+        {% endif %}
+        {% if brd.semaine> max %}
+            {% set max = brd.semaine %}
+        {% endif %}
+    {% endfor %}
     <br>
     <br>
-    <table  id="example" class="display" style="width:100%">
+    <table id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+
+            <th>Film</th>
+            <th>Salle</th>
+            {% for i in 1..max %}
+                <th>Semaine {{ i }}</th>
+            {% endfor %}
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set sum = 0 %}
+        {% set index = 1 %}
+        {% for brd in bordereauSalles %}
+
+            {% if (loop.first) %}
+                {% set sum = sum + brd.recette %}
+
+
+                <tr>
+                <td>{{ brd.film.titre }}</td>
+                <td>{{ brd.salle.nom }}</td>
+                <td>{{ brd.recette }}</td>
+
+            {% elseif brd.film.titre is same as(first) %}
+
+                {% set sum = sum + brd.recette %}
+                {% set index =brd.semaine %}
+                <td>{{ brd.recette }}</td>
+            {% else %}
+                {% for i in index..max %}
+                    {% if index != max %}
+                        <td>0</td>
+                    {% endif %}
+                {% endfor %}
+                <td>{{ sum }}</td>
+                {% set sum = brd.recette %}
+                </tr>
+                <tr>
+                <td>{{ brd.film.titre }}</td>
+                <td>{{ brd.salle.nom }}</td>
+                <td>{{ brd.recette }}</td>
+                {% set index = brd.semaine %}
+
+            {% endif %}
+            {% if loop.last %}
+                {% for i in index+1..max %}
+                    {% if index != max %}
+                        <td>0</td>
+                    {% endif %}
+                {% endfor %}
+                <td>{{ sum }}</td>
+                </tr>
+            {% endif %}
 
 
 
-
+        {% endfor %}
+        <t>
+            <th>TOTAL</th>
+            <td></td>
+            {% for i in 1..max %}
+                <td></td>
+            {% endfor %}
+            <td></td>
+        </t>
+        </tbody>
     </table>
 
-
 {% endblock %}
+
 {% block javascripts %}
-
-
-
 
 
     <script src="{{ asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' ) }}"></script>
@@ -56,15 +127,15 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function() {
-            $('#example').DataTable( {
+        $(document).ready(function () {
+            $('#example').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
-                    { extend: 'copy', footer: true },
-                    { extend: 'excel', footer: true },
-                    { extend: 'csv', footer: true },
-                    { extend: 'pdf', footer: true },
-                    { extend: 'print', footer: true }
+                    {extend: 'copy', footer: true},
+                    {extend: 'excel', footer: true},
+                    {extend: 'csv', footer: true},
+                    {extend: 'pdf', footer: true},
+                    {extend: 'print', footer: true}
                 ],
                 initComplete: function () {
                     var btns = $('.dt-button');
@@ -74,9 +145,8 @@
                 },
 
 
-
-            } );
-        } );
+            });
+        });
 
 
     </script>
