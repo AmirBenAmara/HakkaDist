@@ -59,7 +59,7 @@ class HomeController extends Controller
     {
 
 
-        {
+
             $em = $this->getDoctrine()->getManager();
 
             $bordereauSalles = $em->getRepository('AppBundle:BordereauSalle')->findBy(array(),array('film'=>'asc','salle'=>'asc'));
@@ -67,7 +67,8 @@ class HomeController extends Controller
             return $this->render('home/recettes.html.twig', array(
                 'bordereauSalles' => $bordereauSalles,
             ));
-        }
+
+
     }
 
 
