@@ -158,8 +158,8 @@
 
                 </li>
 
+{% if is_granted('ROLE_ADMIN') %}
 
-                {% if is_granted('ROLE_ADMIN') %}
                 <li class="treeview {% if app.request.get('_route')  starts with 'film' %}active{% endif %}">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Film</span>
@@ -172,7 +172,8 @@
                         <li><a href="{{ path('film_new') }}"><i class="fa fa-circle-o"></i> Ajouter film</a></li>
                     </ul>
                 </li>
-                <li class="treeview {% if app.request.get('_route')  starts with 'salle' %}active{% endif %}">
+
+                <li class="treeview {% if app.request.get('_route') starts with 'salle' %}active{% endif %}">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
                         <span>Salles</span>
@@ -185,7 +186,9 @@
                         <li><a href="{{ path('salle_new') }}"><i class="fa fa-circle-o"></i> Ajouter Salle</a></li>
                     </ul>
                 </li>
-                <li class="treeview {% if app.request.get('_route')  starts with 'region' %}active{% endif %}">
+ {% endif %}
+    {% for role in app.user.roles if role == 'ADMIN_REGION' or role == 'ROLE_ADMIN' %}
+    <li class="treeview {% if app.request.get('_route')  starts with 'region' %}active{% endif %}">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
                         <span>Regions</span>
@@ -198,6 +201,8 @@
                         <li><a href="{{ path('region_new') }}"><i class="fa fa-circle-o"></i> Ajouter Region</a></li>
                     </ul>
                 </li>
+{% endfor %}
+{% for role in app.user.roles if role == 'ADMIN_REGION' or role == 'ROLE_ADMIN' %}
                 <li class="treeview {% if app.request.get('_route')  starts with 'brd' %}active{% endif %} {% if app.request.get('_route')  starts with 'bordereau' %}active{% endif %}">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
@@ -207,13 +212,15 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
+                        {%  if is_granted('ROLE_ADMIN')  %}
                         <li><a href="{{ path('brdsalle_index') }}"><i class="fa fa-circle-o"></i> Bordereaux / Salle</a></li>
+                        {% endif %}
                         <li><a href="{{ path('bordereauregion_index') }}"><i class="fa fa-circle-o"></i> Bordereaux / Region</a></li>
+
                     </ul>
                 </li>
-
-                {%endif%}
-
+ {% endfor %}
+{% for role in app.user.roles if role == 'ROLE_FINANCIER' or role == 'ROLE_ADMIN' %}
                 <li class="treeview {% if app.request.get('_route')  starts with 'depen' %}active{% endif %}">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Depenses</span>
@@ -227,7 +234,7 @@
                     </ul>
                 </li>
 
-
+{% endfor %}
             </ul>
         </section>
         <!-- /.sidebar -->
