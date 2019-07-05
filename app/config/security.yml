@@ -3,8 +3,11 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_SUPER_ADMIN
+        ROLE_ADMIN:       ROLE_ADMIN
+        ROLE_ADMIN_REGION: ROLE_ADMIN_REGION
+        ROLE_FINANCIER:   ROLE_FINANCIER
+        SUPERVISEUR:      SUPERVISEUR
 
     providers:
         fos_userbundle:
