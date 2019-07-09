@@ -31,32 +31,39 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <style>
         .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
-            background-color: #35363a  !important;
+            background-color: #35363a !important;
 
         }
+
         .skin-blue .main-header .navbar {
             background-color: #242527 !important;
         }
+
         .skin-blue .main-header .logo {
-            background-color: #242527  !important;
+            background-color: #242527 !important;
 
         }
+
         .skin-blue .sidebar-menu > li.header {
-            background-color: #35363a  !important;
+            background-color: #35363a !important;
             border-bottom: none !important;
 
         }
+
         .skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a, .skin-blue .sidebar-menu > li.menu-open > a {
 
             background: #27272b;
         }
+
         .skin-blue .sidebar-menu > li > .treeview-menu {
 
             background: none;
         }
+
         .skin-blue .sidebar-menu > li.active > a {
             border-left-color: #d12610;
         }
+
         ul.sidebar-menu > li {
             border-bottom: 1px solid #414247;
         }
@@ -109,7 +116,8 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{{ path('fos_user_change_password') }}" class="btn btn-default btn-flat">Changer Password</a>
+                                    <a href="{{ path('fos_user_change_password') }}" class="btn btn-default btn-flat">Changer
+                                        Password</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Déconnexion</a>
@@ -138,7 +146,7 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">
-                    <br /><br /></li>
+                    <br/><br/></li>
 
 
                 <li class="treeview {% if app.request.get('_route')  starts with 'home' %}active{% endif %}">
@@ -153,88 +161,110 @@
                         <li><a href="{{ path('entrees_home') }}"><i class="fa fa-circle-o"></i>Entrees</a></li>
                         <li><a href="{{ path('recettes_home') }}"><i class="fa fa-circle-o"></i>Recettes</a></li>
                         <li><a href="{{ path('depenses_home') }}"><i class="fa fa-circle-o"></i> Depenses</a></li>
-                        <li><a href="{{ path('partDistribuable_home') }}"><i class="fa fa-circle-o"></i> Part Distribuable</a></li>
+                        <li><a href="{{ path('partDistribuable_home') }}"><i class="fa fa-circle-o"></i> Part
+                                Distribuable</a></li>
                     </ul>
 
                 </li>
 
-{% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') %}
 
-                <li class="treeview {% if app.request.get('_route')  starts with 'film' %}active{% endif %}">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Film</span>
-                        <span class="pull-right-container">
+                    <li class="treeview {% if app.request.get('_route')  starts with 'film' %}active{% endif %}">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Film</span>
+                            <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ path('film_index') }}"><i class="fa fa-circle-o"></i>Liste</a></li>
-                        <li><a href="{{ path('film_new') }}"><i class="fa fa-circle-o"></i> Ajouter film</a></li>
-                    </ul>
-                </li>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ path('film_index') }}"><i class="fa fa-circle-o"></i>Liste</a></li>
+                            <li><a href="{{ path('film_new') }}"><i class="fa fa-circle-o"></i> Ajouter film</a></li>
+                        </ul>
+                    </li>
 
-                <li class="treeview {% if app.request.get('_route') starts with 'salle' %}active{% endif %}">
-                    <a href="#">
-                        <i class="fa fa-files-o"></i>
-                        <span>Salles</span>
-                        <span class="pull-right-container">
+                    <li class="treeview {% if app.request.get('_route') starts with 'salle' %}active{% endif %}">
+                        <a href="#">
+                            <i class="fa fa-files-o"></i>
+                            <span>Salles</span>
+                            <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ path('salle_index') }}"><i class="fa fa-circle-o"></i> Liste Salles</a></li>
-                        <li><a href="{{ path('salle_new') }}"><i class="fa fa-circle-o"></i> Ajouter Salle</a></li>
-                    </ul>
-                </li>
- {% endif %}
-    {% for role in app.user.roles if role == 'ADMIN_REGION' or role == 'ROLE_ADMIN' %}
-    <li class="treeview {% if app.request.get('_route')  starts with 'region' %}active{% endif %}">
-                    <a href="#">
-                        <i class="fa fa-files-o"></i>
-                        <span>Regions</span>
-                        <span class="pull-right-container">
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ path('salle_index') }}"><i class="fa fa-circle-o"></i> Liste Salles</a></li>
+                            <li><a href="{{ path('salle_new') }}"><i class="fa fa-circle-o"></i> Ajouter Salle</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+                {% for role in app.user.roles if role == 'ADMIN_REGION' or role == 'ROLE_ADMIN' %}
+                    <li class="treeview {% if app.request.get('_route')  starts with 'region' %}active{% endif %}">
+                        <a href="#">
+                            <i class="fa fa-files-o"></i>
+                            <span>Regions</span>
+                            <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ path('region_index') }}"><i class="fa fa-circle-o"></i> Liste Regions</a></li>
-                        <li><a href="{{ path('region_new') }}"><i class="fa fa-circle-o"></i> Ajouter Region</a></li>
-                    </ul>
-                </li>
-{% endfor %}
-{% for role in app.user.roles if role == 'ADMIN_REGION' or role == 'ROLE_ADMIN' %}
-                <li class="treeview {% if app.request.get('_route')  starts with 'brd' %}active{% endif %} {% if app.request.get('_route')  starts with 'bordereau' %}active{% endif %}">
-                    <a href="#">
-                        <i class="fa fa-files-o"></i>
-                        <span>Bordereau</span>
-                        <span class="pull-right-container">
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ path('region_index') }}"><i class="fa fa-circle-o"></i> Liste Regions</a>
+                            </li>
+                            <li><a href="{{ path('region_new') }}"><i class="fa fa-circle-o"></i> Ajouter Region</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endfor %}
+                {% for role in app.user.roles if role == 'ADMIN_REGION' or role == 'ROLE_ADMIN' %}
+                    <li class="treeview {% if app.request.get('_route')  starts with 'brd' %}active{% endif %} {% if app.request.get('_route')  starts with 'bordereau' %}active{% endif %}">
+                        <a href="#">
+                            <i class="fa fa-files-o"></i>
+                            <span>Bordereau</span>
+                            <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        {%  if is_granted('ROLE_ADMIN')  %}
-                        <li><a href="{{ path('brdsalle_index') }}"><i class="fa fa-circle-o"></i> Bordereaux / Salle</a></li>
-                        {% endif %}
-                        <li><a href="{{ path('bordereauregion_index') }}"><i class="fa fa-circle-o"></i> Bordereaux / Region</a></li>
+                        </a>
+                        <ul class="treeview-menu">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('brdsalle_index') }}"><i class="fa fa-circle-o"></i> Bordereaux /
+                                        Salle</a></li>
+                            {% endif %}
+                            <li><a href="{{ path('bordereauregion_index') }}"><i class="fa fa-circle-o"></i> Bordereaux
+                                    / Region</a></li>
 
-                    </ul>
-                </li>
- {% endfor %}
-{% for role in app.user.roles if role == 'ROLE_FINANCIER' or role == 'ROLE_ADMIN' %}
-                <li class="treeview {% if app.request.get('_route')  starts with 'depen' %}active{% endif %}">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Depenses</span>
-                        <span class="pull-right-container">
+                        </ul>
+                    </li>
+                {% endfor %}
+                {% for role in app.user.roles if role == 'ROLE_FINANCIER' or role == 'ROLE_ADMIN' %}
+                    <li class="treeview {% if app.request.get('_route')  starts with 'depen' %}active{% endif %}">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Depenses</span>
+                            <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ path('depenses_index') }}"><i class="fa fa-circle-o"></i>Liste</a></li>
-                        <li><a href="{{ path('depenses_new') }}"><i class="fa fa-circle-o"></i> Ajouter depense</a></li>
-                    </ul>
-                </li>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ path('depenses_index') }}"><i class="fa fa-circle-o"></i>Liste</a></li>
+                            <li><a href="{{ path('depenses_new') }}"><i class="fa fa-circle-o"></i> Ajouter depense</a>
+                            </li>
+                        </ul>
+                    </li>
 
-{% endfor %}
+                {% endfor %}
+
+                {% for role in app.user.roles if  role == 'ROLE_ADMIN' %}
+                    <li class="treeview {% if app.request.get('_route')  starts with 'parametre' %}active{% endif %}">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Paramètres</span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ path('parametre_index') }}"><i class="fa fa-circle-o"></i>Modifier les paramètres</a></li>
+                            </li>
+                        </ul>
+                    </li>
+
+                {% endfor %}
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -259,8 +289,8 @@
 
         <!-- Main content -->
         <section class="content">
-{% block unboxed %}
-{% endblock %}
+            {% block unboxed %}
+            {% endblock %}
             <!-- Default box -->
             <div class="box">
 
