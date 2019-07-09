@@ -71,6 +71,9 @@ sensio_framework_extra:
         annotations: false
 
 fos_user:
+    registration:
+        form:
+            type: AppBundle\Form\RegistrationType
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
