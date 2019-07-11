@@ -1,12 +1,25 @@
 # Learn more about services, parameters and containers at
 # https://symfony.com/doc/current/service_container.html
+
 parameters:
     #parameter_name: value
     app.path.product_images: /uploads/images/products
 
 services:
 
+    app.form.registration:
+        class: AppBundle\Form\RegistrationType
+        arguments: ['@router']
+        tags:
+            - { name: form.type, alias: app_user_registration }
 
+    app.listener.registration:
+        class: AppBundle\EventListener\RegistrationListener
+        arguments: ['@router']
+        tags:
+            - { name: kernel.event_subscriber }
+#    fos_user.listener.authentication:
+#        resource: 'listeners.xml'
     app.repository.film:
         class: AppBundle\Repository\FilmRepository
         factory: ['@doctrine', getRepository]
