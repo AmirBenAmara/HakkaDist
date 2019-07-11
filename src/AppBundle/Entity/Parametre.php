@@ -28,7 +28,7 @@ class Parametre
      *
      * @ORM\Column(name="tva", type="float")
      */
-    private $titre;
+    private $tva;
 
     /**
      * @var float
@@ -56,18 +56,19 @@ class Parametre
     /**
      * @return float
      */
-    public function getTitre()
+    public function getTva()
     {
-        return $this->titre;
+        return $this->tva;
     }
 
     /**
-     * @param float $titre
+     * @param float $tva
      */
-    public function setTitre($titre)
+    public function setTva($tva)
     {
-        $this->titre = $titre;
+        $this->tva = $tva;
     }
+
 
     /**
      * @return float

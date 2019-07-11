@@ -50,6 +50,20 @@ class BordereauSalle
      */
     private $semaine;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_debut", type="date", nullable=true)
+     */
+    private $date_debut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_fin", type="date", nullable=true)
+     */
+    private $date_fin;
+
 
 
     /**
@@ -226,6 +240,38 @@ class BordereauSalle
     public function setPartSalle($part_salle)
     {
         $this->part_salle = $part_salle;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateDebut()
+    {
+        return $this->date_debut;
+    }
+
+    /**
+     * @param \DateTime $date_debut
+     */
+    public function setDateDebut($date_debut)
+    {
+        $this->date_debut = $date_debut;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateFin()
+    {
+        return $this->date_fin;
+    }
+
+    /**
+     * @param \DateTime $date_fin
+     */
+    public function setDateFin($date_fin)
+    {
+        $this->date_fin = $date_fin;
     }
 
 

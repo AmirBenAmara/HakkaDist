@@ -122,29 +122,41 @@
         {#</li>#}
     {#</ul>#}
 
-    <div id="source-html" style="display: none" >
+    <div id="source-html"  >
         <h1 style="text-align: center">
             HAKKA FILMS
         </h1>
+
+
         <style type="text/css">
             .tg  {border-collapse:collapse;border-spacing:0;}
-            .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-            .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg td{text-align:center;font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg th{text-align:center;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
             .tg .tg-xldj{border-color:inherit;text-align:left}
             .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
         </style>
-        <table class="tg">
+        <table >
             <tr>
-                <th class="tg-xldj">Cinema :</th>
-                <th class="tg-0pky">{{ bordereauSalle.salle.nom }}</th>
-                <th class="tg-0pky">Adresse :</th>
-                <th class="tg-0pky">{{ bordereauSalle.salle.adresse }}</th>
+                <td>Facture n°: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>MF:1358731/V/A/M000	</td>
+            </tr>
+        </table>
+        <table class="tg">
+
+            <tr>
+                <td class="tg-xldj">Cinema :</td>
+                <td class="tg-0pky">{{ bordereauSalle.salle.nom }}</td>
+                <td class="tg-0pky">Adresse :</td>
+                <td class="tg-0pky">{{ bordereauSalle.salle.adresse }}</td>
             </tr>
             <tr>
                 <td class="tg-0pky">Programme du :</td>
-                <td class="tg-0pky"></td>
+                <td class="tg-0pky">{{ bordereauSalle.datedebut|date("m/d/Y") }}</td>
                 <td class="tg-0pky">au :</td>
-                <td class="tg-0pky"></td>
+                <td class="tg-0pky">{{ bordereauSalle.datedebut|date("m/d/Y") }}</td>
             </tr>
             <tr>
                 <td class="tg-0pky">Titre du film :</td>
@@ -170,11 +182,17 @@
         <table class="tg">
             <tr>
                 <th class="tg-xldj">Total brute :</th>
-                <th class="tg-0pky">{{ bordereauSalle.recette }}</th>
+                <th class="tg-0pky">{{ bordereauSalle.recette }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                </th>
 
             </tr>
             <tr>
-                <td class="tg-0pky">TVA 7% :</td>
+                <td class="tg-0pky">TVA {{ parametre.tva }}% :</td>
                 <td class="tg-0pky"></td>
 
             </tr>
@@ -189,14 +207,14 @@
 
             </tr>
             <tr>
-                <td class="tg-0pky">Part Distributeur :</td>
+                <td class="tg-0pky">Part Distributeur : &nbsp;&nbsp;</td>
                 <td class="tg-0pky"></td>
-                <td class="tg-0pky">TVA 7%</td>
+                <td class="tg-0pky">TVA {{ parametre.tva }}%</td>
                 <td class="tg-0pky"></td>
             </tr>
             <tr>
                 <td class="tg-0pky">Droit de timbre :</td>
-                <td class="tg-0pky"></td>
+                <td class="tg-0pky">{{ parametre.droitdetimbre }}</td>
 
             </tr>
             <tr>

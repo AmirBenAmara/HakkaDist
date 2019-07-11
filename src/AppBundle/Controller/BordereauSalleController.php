@@ -65,11 +65,17 @@ class BordereauSalleController extends Controller
      */
     public function showAction(BordereauSalle $bordereauSalle)
     {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $parametre = $em->getRepository('AppBundle:Parametre')->find(1);
+
         $deleteForm = $this->createDeleteForm($bordereauSalle);
 
         return $this->render('bordereausalle/show.html.twig', array(
             'bordereauSalle' => $bordereauSalle,
             'delete_form' => $deleteForm->createView(),
+            'parametre' => $parametre,
         ));
     }
 
