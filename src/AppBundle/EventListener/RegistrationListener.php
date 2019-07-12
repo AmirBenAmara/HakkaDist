@@ -31,7 +31,7 @@ class RegistrationListener implements EventSubscriberInterface
 
     public function onRegistrationSuccess(FormEvent $event)
     {
-        $url = $this->router->generate('admin_users');
+        $url = $this->router->generate('fos_user_security_login');
         $event->setResponse(new RedirectResponse($url));
     }
 }

@@ -17,9 +17,8 @@ class SalleType extends AbstractType
             ->add('nom')
             ->add('nomsociete')
             ->add('adresse')
-            ->add('mat_fiscale')
-            ->add('part_dist_salle')
-            ->add('part_proprio_salle');
+            ->add('mat_fiscale');
+
     }/**
      * {@inheritdoc}
      */

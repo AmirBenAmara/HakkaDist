@@ -19,7 +19,6 @@ class RegionType extends AbstractType
             ->add('nom')
             ->add('adresse')
             ->add('mat_fiscale')
-            ->add('part_dist_region')
             ->add('gouvernerat', ChoiceType::class, array(
             'choices' => array(
                 'Ariana' => 'Ariana',
