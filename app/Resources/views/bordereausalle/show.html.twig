@@ -122,7 +122,7 @@
         {#</li>#}
     {#</ul>#}
 
-    <div id="source-html"  >
+    <div id="source-html"  style="display: none" >
         <h1 style="text-align: center">
             HAKKA FILMS
         </h1>
@@ -193,24 +193,24 @@
             </tr>
             <tr>
                 <td class="tg-0pky">TVA {{ parametre.tva }}% :</td>
-                <td class="tg-0pky"></td>
+                <td class="tg-0pky">{{ bordereauSalle.recette *  (parametre.tva /100) }}</td>
 
             </tr>
             <tr>
                 <td class="tg-0pky">Total HT :</td>
-                <td class="tg-0pky"></td>
+                <td class="tg-0pky">{{ bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100) }}</td>
 
             </tr>
             <tr>
                 <td class="tg-0pky">Part Salle :</td>
-                <td class="tg-0pky"></td>
+                <td class="tg-0pky">{{ (bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * (bordereauSalle.pourcentagesalle/100) }}</td>
 
             </tr>
             <tr>
                 <td class="tg-0pky">Part Distributeur : &nbsp;&nbsp;</td>
-                <td class="tg-0pky"></td>
+                <td class="tg-0pky">{{ (bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100) }}</td>
                 <td class="tg-0pky">TVA {{ parametre.tva }}%</td>
-                <td class="tg-0pky"></td>
+                <td class="tg-0pky">{{ ((bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100))*((parametre.tva /100)) }}</td>
             </tr>
             <tr>
                 <td class="tg-0pky">Droit de timbre :</td>
@@ -219,7 +219,7 @@
             </tr>
             <tr>
                 <td class="tg-0pky">A payer :</td>
-                <td class="tg-0pky"></td>
+                <td class="tg-0pky">{{ ((bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100))+(((bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100))*((parametre.tva /100))) + parametre.droitdetimbre}}</td>
 
             </tr>
         </table>
