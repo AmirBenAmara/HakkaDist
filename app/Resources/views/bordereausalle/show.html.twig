@@ -53,12 +53,13 @@
         <div class="col-md-5">
             <h1><b class="label label-default">part salle:</b> {{ bordereauSalle.partsalle }}</h1>
         </div>
+
         <div class="col-md-5">
-                <button id="btn-export" class="btn btn-primary" onclick="exportHTML()">Generer Facture TTC</button>
+            <br><br>
+            <button id="btn-export" class="btn btn-primary" onclick="exportHTML()">Generer Facture TTC</button>
+            <button id="btn-export" class="btn btn-primary" onclick="exportHTML2()">Generer Facture HT</button>
+
         </div>
-
-
-
 
     </div>
 </div>
@@ -227,6 +228,81 @@
 
 
     </div>
+<!--_____________________________________________________________________________________________________________________-->
+
+    <div id="source-html2"  style="display: none"  >
+        <h1 style="text-align: center">
+            HAKKA FILMS
+        </h1>
+
+
+        <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{text-align:center;font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg th{text-align:center;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg .tg-xldj{border-color:inherit;text-align:left}
+            .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+        </style>
+        <table >
+            <tr>
+                <td>Facture n°: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>MF:1358731/V/A/M000	</td>
+            </tr>
+        </table>
+
+        <table class="tg">
+
+            <tr>
+                <td class="tg-xldj">Cinema :&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">{{ bordereauSalle.salle.nom }}</td>
+                <td class="tg-0pky">Adresse :</td>
+                <td class="tg-0pky">{{ bordereauSalle.salle.adresse }}</td>
+            </tr>
+        </table>
+        <br>
+        <table class="tg">
+
+            <tr>
+                <td class="tg-xldj">Titre du Film :</td>
+                <td class="tg-0pky">{{ bordereauSalle.film.titre }}</td>
+
+            </tr>
+            <tr>
+                <td class="tg-0pky">Programme du :</td>
+                <td class="tg-0pky">{{ bordereauSalle.datedebut|date("m/d/Y") }}</td>
+                <td class="tg-0pky">au :</td>
+                <td class="tg-0pky">{{ bordereauSalle.datedebut|date("m/d/Y") }}</td>
+            </tr>
+
+            <tr>
+                <td class="tg-0pky">Semaine :</td>
+                <td class="tg-0pky">{{ bordereauSalle.semaine }}</td>
+
+            </tr>
+            <tr>
+
+                <td class="tg-0pky">Pourcentage distributeur :</td>
+
+                <td class="tg-0pky">{{  (100-(bordereauSalle.pourcentagesalle)) }} %</td>
+
+                <td class="tg-0pky">Total HT :</td>
+                <td class="tg-0pky">{{ bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100) }} </td>
+
+                <td class="tg-0pky">Part Distributeur : &nbsp;&nbsp;</td>
+                <td class="tg-0pky">{{ (bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100) }}</td>
+            </tr>
+        </table>
+
+
+
+
+
+    </div>
 
 
 
@@ -293,11 +369,35 @@
             var fileDownload = document.createElement("a");
             document.body.appendChild(fileDownload);
             fileDownload.href = source;
-            fileDownload.download = 'document.doc';
+            fileDownload.download = 'FactureTTC.doc';
             fileDownload.click();
             document.body.removeChild(fileDownload);
 
             document.getElementById('source-html').style.display = "none" ;
+
+        }
+    </script>
+    <script>
+        function exportHTML2(){
+
+            document.getElementById('source-html2').style.display = "block" ;
+
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+                "xmlns='http://www.w3.org/TR/REC-html40'>"+
+                "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+            var footer = "</body></html>";
+            var sourceHTML = header+document.getElementById("source-html2").innerHTML+footer;
+
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'FactureHT.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+
+            document.getElementById('source-html2').style.display = "none" ;
 
         }
     </script>
