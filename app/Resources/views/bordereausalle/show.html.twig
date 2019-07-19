@@ -1,0 +1,407 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' ) }}">
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css' ) }}">
+
+    <style>
+        .dataTables_filter input {
+            border: 1px solid #555;
+
+            border-radius: 1px;
+            box-sizing: border-box;
+        }
+
+
+    </style>
+
+{% endblock %}
+{% block body %}
+
+    {% set recette = 0 %}
+    {% set nbEntree = 0 %}
+    {% for seanceSalle in bordereauSalle.seances %}
+        {% set recette = recette + seanceSalle.recetteseance%}
+        {% set nbEntree = nbEntree + seanceSalle.nbrentreeseance%}
+
+    {% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <h1><b class="label label-default">Film:</b> {{ bordereauSalle.film.titre }}</h1>
+        </div>
+        <div class="col-md-5">
+            <h1><b class="label label-default">Salle:</b> {{ bordereauSalle.salle.nom }}</h1>
+        </div>
+        <div class="col-md-2">
+            <h1> <a href="{{ path('brdsalle_edit', { 'id': bordereauSalle.id }) }}">   <span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span></a></h1>
+        </div>
+        <div class="col-md-5">
+            <h1><b class="label label-default">Nb Entrées:</b> {{ nbEntree }}</h1>
+        </div>
+        <div class="col-md-5">
+            <h1><b class="label label-default">Recette:</b> {{ recette }}</h1>
+        </div>
+        <div class="col-md-2">
+           <h1> <span class="text-danger glyphicon glyphicon-remove " aria-hidden="true"></span></h1>
+        </div>
+        <div class="col-md-5">
+            <h1><b class="label label-default">pourcentage salle:</b> {{ bordereauSalle.pourcentagesalle }}</h1>
+        </div>
+        <div class="col-md-5">
+            <h1><b class="label label-default">part salle:</b> {{ bordereauSalle.partsalle }}</h1>
+        </div>
+
+        <div class="col-md-5">
+            <br><br>
+            <button id="btn-export" class="btn btn-primary" onclick="exportHTML()">Generer Facture TTC</button>
+            <button id="btn-export" class="btn btn-primary" onclick="exportHTML2()">Generer Facture HT</button>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+    <hr>
+
+
+<br>
+    Ajouter une seance : <a style="float:right" class="btn btn-primary" href="{{ path('seancesalle_new' , { 'id': bordereauSalle.id }) }}">Ajouter une seance</a>
+
+    <table  id="example" class="display" style="width:100%">
+        <thead class="thead-dark">
+        <tr><h3>Liste des seances</h3></tr>
+        <tr>
+            <th>Nbr_entree_seance</th>
+            <th>Recette_seance</th>
+            <th>Date_seance</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for seanceSalle in bordereauSalle.seances %}
+            <tr>
+                <td>{{ seanceSalle.nbrentreeseance }}</td>
+                <td>{{ seanceSalle.recetteseance }}</td>
+                <td>{% if seanceSalle.dateseance %}{{ seanceSalle.dateseance|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+
+                    <a class="btn btn-info" href="{{ path('seancesalle_show', { 'id': seanceSalle.id }) }}">afficher</a>
+
+
+                    <a class="btn btn-success" href="{{ path('seancesalle_edit', { 'id': seanceSalle.id }) }}">modifier</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('brdsalle_index') }}">Back to the list</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#<a href="{{ path('brdsalle_edit', { 'id': bordereauSalle.id }) }}">Edit</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#{{ form_start(delete_form) }}#}
+                {#<input type="submit" value="Delete">#}
+            {#{{ form_end(delete_form) }}#}
+        {#</li>#}
+    {#</ul>#}
+
+    <div id="source-html"  style="display: none" >
+        <h1 style="text-align: center">
+            HAKKA FILMS
+        </h1>
+
+
+        <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{text-align:center;font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg th{text-align:center;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg .tg-xldj{border-color:inherit;text-align:left}
+            .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+        </style>
+        <table >
+            <tr>
+                <td>Facture n°: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>MF:1358731/V/A/M000	</td>
+            </tr>
+        </table>
+        <table class="tg">
+
+            <tr>
+                <td class="tg-xldj">Cinema :</td>
+                <td class="tg-0pky">{{ bordereauSalle.salle.nom }}</td>
+                <td class="tg-0pky">Adresse :</td>
+                <td class="tg-0pky">{{ bordereauSalle.salle.adresse }}</td>
+            </tr>
+            <tr>
+                <td class="tg-0pky">Programme du :</td>
+                <td class="tg-0pky">{{ bordereauSalle.datedebut|date("m/d/Y") }}</td>
+                <td class="tg-0pky">au :</td>
+                <td class="tg-0pky">{{ bordereauSalle.datedebut|date("m/d/Y") }}</td>
+            </tr>
+            <tr>
+                <td class="tg-0pky">Titre du film :</td>
+                <td class="tg-0pky">{{ bordereauSalle.film.titre }}</td>
+
+            </tr>
+            <tr>
+                <td class="tg-0pky">Semaine :</td>
+                <td class="tg-0pky">{{ bordereauSalle.semaine }}</td>
+
+            </tr>
+            <tr>
+                <td class="tg-0pky">Pourcentage salle :</td>
+                <td class="tg-0pky">{{ bordereauSalle.pourcentagesalle }} %</td>
+                <td class="tg-0pky">Pourcentage distributeur :</td>
+
+                <td class="tg-0pky">{{  (100-(bordereauSalle.pourcentagesalle)) }} %</td>
+            </tr>
+        </table>
+
+        <br><br>
+
+        <table class="tg">
+            <tr>
+                <th class="tg-xldj">Total brute :</th>
+                <th class="tg-0pky">{{ bordereauSalle.recette }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                </th>
+
+            </tr>
+            <tr>
+                <td class="tg-0pky">TVA {{ parametre.tva }}% :</td>
+                <td class="tg-0pky">{{ bordereauSalle.recette *  (parametre.tva /100) }}</td>
+
+            </tr>
+            <tr>
+                <td class="tg-0pky">Total HT :</td>
+                <td class="tg-0pky">{{ bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100) }}</td>
+
+            </tr>
+            <tr>
+                <td class="tg-0pky">Part Salle :</td>
+                <td class="tg-0pky">{{ (bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * (bordereauSalle.pourcentagesalle/100) }}</td>
+
+            </tr>
+            <tr>
+                <td class="tg-0pky">Part Distributeur : &nbsp;&nbsp;</td>
+                <td class="tg-0pky">{{ (bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100) }}</td>
+                <td class="tg-0pky">TVA {{ parametre.tva }}%</td>
+                <td class="tg-0pky">{{ ((bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100))*((parametre.tva /100)) }}</td>
+            </tr>
+            <tr>
+                <td class="tg-0pky">Droit de timbre :</td>
+                <td class="tg-0pky">{{ parametre.droitdetimbre }}</td>
+
+            </tr>
+            <tr>
+                <td class="tg-0pky">A payer :</td>
+                <td class="tg-0pky">{{ ((bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100))+(((bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100))*((parametre.tva /100))) + parametre.droitdetimbre}}</td>
+
+            </tr>
+        </table>
+
+
+
+    </div>
+<!--_____________________________________________________________________________________________________________________-->
+
+    <div id="source-html2"  style="display: none"  >
+        <h1 style="text-align: center">
+            HAKKA FILMS
+        </h1>
+
+
+        <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{text-align:center;font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg th{text-align:center;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg .tg-xldj{border-color:inherit;text-align:left}
+            .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+        </style>
+        <table >
+            <tr>
+                <td>Facture n°: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>MF:1358731/V/A/M000	</td>
+            </tr>
+        </table>
+
+        <table class="tg">
+
+            <tr>
+                <td class="tg-xldj">Cinema :&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="tg-0pky">{{ bordereauSalle.salle.nom }}</td>
+                <td class="tg-0pky">Adresse :</td>
+                <td class="tg-0pky">{{ bordereauSalle.salle.adresse }}</td>
+            </tr>
+        </table>
+        <br>
+        <table class="tg">
+
+            <tr>
+                <td class="tg-xldj">Titre du Film :</td>
+                <td class="tg-0pky">{{ bordereauSalle.film.titre }}</td>
+
+            </tr>
+            <tr>
+                <td class="tg-0pky">Programme du :</td>
+                <td class="tg-0pky">{{ bordereauSalle.datedebut|date("m/d/Y") }}</td>
+                <td class="tg-0pky">au :</td>
+                <td class="tg-0pky">{{ bordereauSalle.datedebut|date("m/d/Y") }}</td>
+            </tr>
+
+            <tr>
+                <td class="tg-0pky">Semaine :</td>
+                <td class="tg-0pky">{{ bordereauSalle.semaine }}</td>
+
+            </tr>
+            <tr>
+
+                <td class="tg-0pky">Pourcentage distributeur :</td>
+
+                <td class="tg-0pky">{{  (100-(bordereauSalle.pourcentagesalle)) }} %</td>
+
+                <td class="tg-0pky">Total HT :</td>
+                <td class="tg-0pky">{{ bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100) }} </td>
+
+                <td class="tg-0pky">Part Distributeur : &nbsp;&nbsp;</td>
+                <td class="tg-0pky">{{ (bordereauSalle.recette -  bordereauSalle.recette *  (parametre.tva /100)) * ((100-bordereauSalle.pourcentagesalle)/100) }}</td>
+            </tr>
+        </table>
+
+
+
+
+
+    </div>
+
+
+
+
+{% endblock %}
+{% block javascripts %}
+
+
+
+
+
+    <script src="{{ asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js' ) }}"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                dom: 'Bfrtip',
+                buttons: ['copy','excel', 'csv','pdf','print'],
+
+                initComplete: function () {
+                    var btns = $('.dt-button');
+                    btns.addClass('btn btn-primary btn-sm');
+                    btns.removeClass('dt-button');
+
+                }
+            } );
+        } );
+
+
+    </script>
+
+
+
+
+    <script>
+        function exportHTML(){
+
+            document.getElementById('source-html').style.display = "block" ;
+            
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+                "xmlns='http://www.w3.org/TR/REC-html40'>"+
+                "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+            var footer = "</body></html>";
+            var sourceHTML = header+document.getElementById("source-html").innerHTML+footer;
+
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'FactureTTC.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+
+            document.getElementById('source-html').style.display = "none" ;
+
+        }
+    </script>
+    <script>
+        function exportHTML2(){
+
+            document.getElementById('source-html2').style.display = "block" ;
+
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+                "xmlns='http://www.w3.org/TR/REC-html40'>"+
+                "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+            var footer = "</body></html>";
+            var sourceHTML = header+document.getElementById("source-html2").innerHTML+footer;
+
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'FactureHT.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+
+            document.getElementById('source-html2').style.display = "none" ;
+
+        }
+    </script>
+
+
+
+{% endblock %}

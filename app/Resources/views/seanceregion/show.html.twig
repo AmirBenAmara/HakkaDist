@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Seanceregion</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ seanceRegion.id }}</td>
+            </tr>
+            <tr>
+                <th>Nbr_entree_seance</th>
+                <td>{{ seanceRegion.nbrentreeseance }}</td>
+            </tr>
+            <tr>
+                <th>Recette_seance</th>
+                <td>{{ seanceRegion.recetteseance }}</td>
+            </tr>
+            <tr>
+                <th>Date_seance</th>
+                <td>{% if seanceRegion.dateseance %}{{ seanceRegion.dateseance|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('seanceregion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('seanceregion_edit', { 'id': seanceRegion.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

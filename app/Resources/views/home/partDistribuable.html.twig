@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' ) }}">
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css' ) }}">
+
+    <style>
+        .dataTables_filter input {
+            border: 1px solid #555;
+
+            border-radius: 1px;
+            box-sizing: border-box;
+        }
+    </style>
+
+{% endblock %}
+{% block body %}
+    <h1>Part Distribuable Total</h1>
+
+    <br>
+    <br>
+    <table  id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Nom_Film</th>
+            <th>Nom_Salle</th>
+            <th>Recettes_Salles</th>
+            <th>Part_Distribuable</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for bordereauSalle in bordereauSalles %}
+            <tr class="roww">
+                <td class="id1">{{ bordereauSalle.film.titre }}</td>
+                <td class="id2">{{ bordereauSalle.salle.nom }}</td>
+                <td class="val1">{{ bordereauSalle.recette }}</td>
+                <td class="val2">{{ bordereauSalle.recette -   (bordereauSalle.recette * (bordereauSalle.pourcentagesalle / 100)) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+
+{% endblock %}
+{% block javascripts %}
+
+
+    <script src="{{ asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js' ) }}"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    { extend: 'copy', footer: true },
+                    { extend: 'excel', footer: true },
+                    { extend: 'csv', footer: true },
+                    { extend: 'pdf', footer: true },
+                    { extend: 'print', footer: true }
+                ],
+                initComplete: function () {
+                    var btns = $('.dt-button');
+                    btns.addClass('btn btn-primary btn-sm');
+                    btns.removeClass('dt-button');
+
+                },
+                "language": {
+                    "search": "Entrer le Nom du Film :"
+                }
+
+
+
+
+            } );
+        } );
+
+
+
+        $('.roww').each(function() {
+            var thisId1 = $(this).find('.id1').text();
+            var thisId2 = $(this).find('.id2').text();
+            var sumVal1 = parseFloat($(this).find('.val1').text());
+            var sumVal2 = parseFloat($(this).find('.val2').text());
+
+            var $rowsToGroup = $(this).nextAll('tr').filter(function() {
+                return ($(this).find('.id1').text() === thisId1 && $(this).find('.id2').text() === thisId2);
+            });
+
+            $rowsToGroup.each(function() {
+                sumVal1 += parseFloat($(this).find('.val1').text());
+                sumVal2 += parseFloat($(this).find('.val2').text());
+                $(this).remove();
+            });
+
+            $(this).find('.val1').text(sumVal1);
+            $(this).find('.val2').text(sumVal2);
+        });
+
+
+
+    </script>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a style="float: right;" class="btn btn-success" href="{{ path('film_index') }}">Back to the list</a>
+
+    <h1>Film creation</h1>
+    <br>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input style="float: right;" class="btn btn-info" type="submit" value="Create" />
+    {{ form_end(form) }}
+
+
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script> $('#appbundle_seancesalle_date_seance').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            timePicker: true,
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });</script>
+{% endblock %}

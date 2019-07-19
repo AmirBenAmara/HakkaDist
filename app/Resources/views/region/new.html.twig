@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Region creation</h1>
+    <a style="float: right" class="btn btn-success" href="{{ path('region_index') }}">Back to the list</a>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input class="btn btn-info" type="submit" value="Create" />
+    {{ form_end(form) }}
+
+
+{% endblock %}

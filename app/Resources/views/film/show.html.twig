@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Film</h1>
+{{ form_start(delete_form) }}
+<input class="btn btn-danger" style="float: right" type="submit" value="X">
+{{ form_end(delete_form) }}
+
+    <a class="btn btn-success" href="{{ path('film_index') }}">Back to the list</a>
+
+    <table class="table table-striped">
+        <tbody>
+
+            <tr>
+                <th>Titre</th>
+                <td>{{ film.titre }}</td>
+            </tr>
+            <tr>
+                <th>Entree_total</th>
+                <td>{{ film.entreetotal }}</td>
+            </tr>
+            <tr>
+                <th>Part_dist_salle</th>
+                <td>{{ film.partdistsalle }}</td>
+            </tr>
+            <tr>
+                <th>Part_dist_region</th>
+                <td>{{ film.partdistregion }}</td>
+            </tr>
+            <tr>
+                <th>Part_prod_salle</th>
+                <td>{{ film.partprodsalle }}</td>
+            </tr>
+
+            <tr>
+                <th>Depenses_total</th>
+                <td>{{ film.depensestotal }}</td>
+            </tr>
+            <tr>
+                <th>Date_sortie</th>
+                <td>{% if film.datesortie %}{{ film.datesortie|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ vich_uploader_asset(film, 'imageFile') }}"</td>
+            </tr>
+        </tbody>
+    </table>
+
+            <a class="btn btn-info" href="{{ path('film_edit', { 'id': film.id }) }}">Edit</a>
+
+{% endblock %}

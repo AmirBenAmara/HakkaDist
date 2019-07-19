@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' ) }}">
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css' ) }}">
+
+    <style>
+        .dataTables_filter input {
+            border: 1px solid #555;
+
+            border-radius: 1px;
+            box-sizing: border-box;
+        }
+    </style>
+
+{% endblock %}
+
+{% block body %}
+    <br>
+    <h1>Films list</h1>
+
+    Ajouter un nouveau film : <a class="btn btn-success" href="{{ path('film_new') }}">Ajouter Film</a>
+
+    <br>
+    <br>
+    <table id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Titre</th>
+            <th>Entree_total</th>
+
+            <th>Depenses_total</th>
+            <th>Recettes_total</th>
+            <th>Date_sortie</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+
+        <tbody>
+        {% for film in films %}
+            <tr>
+                <td><img src="{{ vich_uploader_asset(film, 'imageFile') }}" style="height: 50px ; width: 40px"></td>
+                <td>{{ film.titre }}</td>
+                <td>{{ film.entreetotal }}</td>
+
+                <td>{{ film.depensestotal }}</td>
+                <td>{{ film.recettefilm }}</td>
+                <td>{{ film.datesortie|date('Y-m-d') }}</td>
+                <td>
+
+
+                    <a href="{{ path('film_show', { 'id': film.id }) }}"
+                       class="btn btn-primary">show</a>
+
+
+                    <a href="{{ path('film_edit', { 'id': film.id }) }}"
+                       class="btn btn-google">edit</a>
+
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+{% block javascripts %}
+
+
+
+
+
+    <script src="{{ asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js' ) }}"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                dom: 'Bfrtip',
+                buttons: ['copy','excel', 'csv','pdf','print'],
+
+                initComplete: function () {
+                    var btns = $('.dt-button');
+                    btns.addClass('btn btn-primary btn-sm');
+                    btns.removeClass('dt-button');
+
+                }
+            } );
+        } );
+
+
+    </script>
+
+
+
+{% endblock %}

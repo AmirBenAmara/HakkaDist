@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Region</h1>
+
+    {{ form_start(delete_form) }}
+    <input class="btn btn-danger" style="float: right" type="submit" value="X">
+    {{ form_end(delete_form) }}
+    <a class="btn btn-success" href="{{ path('region_index') }}">Back to the list</a>
+
+    <table class="table table-striped">
+        <tbody>
+
+            <tr>
+                <th>Nom</th>
+                <td>{{ region.nom }}</td>
+            </tr>
+            <tr>
+                <th>Gouvernerat</th>
+                <td>{{ region.gouvernerat }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ region.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Mat_fiscale</th>
+                <td>{{ region.matfiscale }}</td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+    <a class="btn btn-info" style="float: right;" href="{{ path('region_edit', { 'id': region.id }) }}">Edit</a>
+
+
+{% endblock %}

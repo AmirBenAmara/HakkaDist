@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Film edit</h1>
+    {{ form_start(delete_form) }}
+    <input style="float: right;" class="btn btn-danger" type="submit" value="X">
+    {{ form_end(delete_form) }}
+    <a href="{{ path('film_index') }}">Back to the list</a>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input style="float: right;" class="btn btn-info" type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
+
+{% endblock %}

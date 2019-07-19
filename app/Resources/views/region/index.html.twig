@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' ) }}">
+
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css' ) }}">
+
+    <style>
+        .dataTables_filter input {
+            border: 1px solid #555;
+
+            border-radius: 1px;
+            box-sizing: border-box;
+        }
+    </style>
+
+{% endblock %}
+{% block body %}
+    <h1>Regions list</h1>
+
+    Ajouter un nouveau Region : <a class="btn btn-success" href="{{ path('region_new') }}">Ajouter Region</a>
+
+    <br>
+    <br>
+    <table  id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+                <th>Nom</th>
+                <th>Gouvernerat</th>
+                <th>Adresse</th>
+                <th>Mat_fiscale</th>
+                <th>recette_region</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for region in regions %}
+            <tr>
+                <td>{{ region.nom }}</td>
+                <td>{{ region.gouvernerat }}</td>
+                <td>{{ region.adresse }}</td>
+                <td>{{ region.matfiscale }}</td>
+                <td>{{ region.recetteregion }}</td>
+                <td>
+
+                            <a class="btn btn-primary" href="{{ path('region_show', { 'id': region.id }) }}">show</a>
+
+                            <a class="btn btn-google" href="{{ path('region_edit', { 'id': region.id }) }}">edit</a>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+{% block javascripts %}
+
+
+
+
+
+    <script src="{{ asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js' ) }}"></script>
+
+    <script src="{{ asset('https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js' ) }}"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                dom: 'Bfrtip',
+                buttons: ['copy','excel', 'csv','pdf','print'],
+
+                initComplete: function () {
+                    var btns = $('.dt-button');
+                    btns.addClass('btn btn-primary btn-sm');
+                    btns.removeClass('dt-button');
+
+                }
+            } );
+        } );
+
+
+    </script>
+
+
+
+{% endblock %}

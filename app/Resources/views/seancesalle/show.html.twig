@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Seancesalle</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ seanceSalle.id }}</td>
+            </tr>
+            <tr>
+                <th>Nbr_entree_seance</th>
+                <td>{{ seanceSalle.nbrentreeseance }}</td>
+            </tr>
+            <tr>
+                <th>Recette_seance</th>
+                <td>{{ seanceSalle.recetteseance }}</td>
+            </tr>
+            <tr>
+                <th>Date_seance</th>
+                <td>{% if seanceSalle.dateseance %}{{ seanceSalle.dateseance|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('seancesalle_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('seancesalle_edit', { 'id': seanceSalle.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
