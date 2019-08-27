@@ -92,15 +92,18 @@
 
 
         {% endfor %}
-        <t>
+
+        </tbody>
+        <tfoot>
+        <tr>
             <th>TOTAL</th>
             <td></td>
             {% for i in 1..max %}
                 <td></td>
             {% endfor %}
             <td></td>
-        </t>
-        </tbody>
+        </tr>
+        </tfoot>
     </table>
 
 {% endblock %}
@@ -143,6 +146,41 @@
                     btns.removeClass('dt-button');
 
                 },
+
+
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column( api.row(0).data().length -1 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+
+                    // Total over this page
+                    pageTotal = api
+                        .column( api.row(0).data().length -1, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    console.log(pageTotal);
+                    // Update footer
+                    $( api.column( api.row(0).data().length - 1 ).footer() ).html(
+                        pageTotal
+
+                    );
+
+                }
 
 
             });
