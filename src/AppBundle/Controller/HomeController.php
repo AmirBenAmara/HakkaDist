@@ -43,9 +43,11 @@ class HomeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $bordereauSalles = $em->getRepository('AppBundle:BordereauSalle')->findBy(array(),array('film'=>'asc','salle'=>'asc'));
+        $bordereauRegions = $em->getRepository('AppBundle:BordereauRegion')->findBy(array(),array('film'=>'asc','region'=>'asc'));
 
         return $this->render('home/entrees.html.twig', array(
             'bordereauSalles' => $bordereauSalles,
+            'bordereauRegions' => $bordereauRegions
         ));
     }
 
@@ -63,11 +65,12 @@ class HomeController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $bordereauSalles = $em->getRepository('AppBundle:BordereauSalle')->findBy(array(),array('film'=>'asc','salle'=>'asc'));
+            $bordereauRegions = $em->getRepository('AppBundle:BordereauRegion')->findBy(array(),array('film'=>'asc','region'=>'asc'));
 
-            return $this->render('home/recettes.html.twig', array(
-                'bordereauSalles' => $bordereauSalles,
-            ));
-
+        return $this->render('home/recettes.html.twig', array(
+            'bordereauSalles' => $bordereauSalles,
+            'bordereauRegions' => $bordereauRegions
+        ));
 
     }
 

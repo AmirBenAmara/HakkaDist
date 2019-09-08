@@ -30,8 +30,22 @@
             {% set max = brd.semaine %}
         {% endif %}
     {% endfor %}
+
+
+    {% set max2 = 1 %}
+    {% set first2 = "" %}
+    {% for brd in bordereauRegions %}
+        {% if loop.first %}
+            {% set first2 = brd.film.titre %}
+        {% endif %}
+        {% if brd.semaine> max2 %}
+            {% set max2 = brd.semaine %}
+        {% endif %}
+    {% endfor %}
+
     <br>
     <br>
+    <h3>Bordereau Salles</h3>
     <table id="example" class="display" style="width:100%">
         <thead>
         <tr>
@@ -106,6 +120,86 @@
         </tfoot>
     </table>
 
+    <br>
+    <h3>Bordereau Regions</h3>
+
+    <table id="region" class="display" style="width:100%">
+        <thead>
+        <tr>
+
+            <th>Film</th>
+            <th>Region</th>
+            {% for i in 1..max2 %}
+                <th>Semaine {{ i }}</th>
+            {% endfor %}
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set sum = 0 %}
+        {% set index = 1 %}
+        {% for brd in bordereauRegions %}
+
+            {% if (loop.first) %}
+                {% set sum = sum + brd.nbEntrees %}
+
+
+                <tr>
+                <td>{{ brd.film.titre }}</td>
+                <td>{{ brd.region.nom }}</td>
+                <td>{{ brd.nbEntrees }}</td>
+
+            {% elseif brd.film.titre is same as(first2) %}
+
+                {% set sum = sum + brd.nbEntrees %}
+                {% set index =brd.semaine %}
+                <td>{{ brd.nbEntrees }}</td>
+            {% else %}
+                {% for i in index..max2 %}
+                    {% if index != max2%}
+                        <td>0</td>
+                    {% endif %}
+                {% endfor %}
+                <td>{{ sum }}</td>
+                {% set sum = brd.nbEntrees %}
+                </tr>
+                <tr>
+                <td>{{ brd.film.titre }}</td>
+                <td>{{ brd.region.nom }}</td>
+                <td>{{ brd.nbEntrees }}</td>
+                {% set index = brd.semaine %}
+
+            {% endif %}
+            {% if loop.last %}
+                {% for i in index+1..max2 %}
+                    {% if index != max2 %}
+                        <td>0</td>
+                    {% endif %}
+                {% endfor %}
+                <td>{{ sum }}</td>
+                </tr>
+            {% endif %}
+
+
+
+        {% endfor %}
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>TOTAL</th>
+            <td></td>
+            {% for i in 1..max2 %}
+                <td></td>
+            {% endfor %}
+            <td></td>
+        </tr>
+        </tfoot>
+    </table>
+
+
+
+
 {% endblock %}
 
 {% block javascripts %}
@@ -132,6 +226,59 @@
 
         $(document).ready(function () {
             $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {extend: 'copy', footer: true},
+                    {extend: 'excel', footer: true},
+                    {extend: 'csv', footer: true},
+                    {extend: 'pdf', footer: true},
+                    {extend: 'print', footer: true}
+                ],
+                initComplete: function () {
+                    var btns = $('.dt-button');
+                    btns.addClass('btn btn-primary btn-sm');
+                    btns.removeClass('dt-button');
+
+                },
+
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column( api.row(0).data().length -1 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+
+                    // Total over this page
+                    pageTotal = api
+                        .column( api.row(0).data().length -1, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    console.log(pageTotal);
+                    // Update footer
+                    $( api.column( api.row(0).data().length - 1 ).footer() ).html(
+                        pageTotal
+
+                    );
+
+                }
+
+
+
+            });
+            $('#region').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     {extend: 'copy', footer: true},

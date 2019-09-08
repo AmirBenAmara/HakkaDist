@@ -43,6 +43,7 @@ class RegionType extends AbstractType
                 'Sousse' => 'Sousse',
                 'Tataouine' => 'Tataouine',
                 'Tozeur' => 'Tozeur',
+                'Tunis' => 'Tunis',
                 'Zaghouan' => 'Zaghouan'
 
             ),
