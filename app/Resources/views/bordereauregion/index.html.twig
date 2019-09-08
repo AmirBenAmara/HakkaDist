@@ -27,9 +27,13 @@
     <table  id="example" class="display" style="width:100%">
         <thead>
             <tr>
-                <th>#</th>
+
                 <th>Film</th>
+                <th>Gouvernerat</th>
                 <th>Region</th>
+                <th>Adresse</th>
+                <th>Entrees Total</th>
+                <th>Recette</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -37,11 +41,14 @@
         {% for bordereauRegion in bordereauRegions %}
 
             <tr>
-                <td><a href="{{ path('bordereauregion_show', { 'id': bordereauRegion.id }) }}">{{ bordereauRegion.id }}</a></td>
 
                 <td>{{ bordereauRegion.film.titre }}</td>
+                <td>{{ bordereauRegion.region.gouvernerat }}</td>
                 <td>{{ bordereauRegion.region.nom }}</td>
-                <td></td>
+                <td>{{ bordereauRegion.region.adresse }}</td>
+                <td>{{bordereauRegion.nbEntrees}}</td>
+                <td>{{ bordereauRegion.recette }}</td>
+
 <td>
                             <a  class="btn btn-info" href="{{ path('bordereauregion_show', { 'id': bordereauRegion.id }) }}">afficher</a>
 

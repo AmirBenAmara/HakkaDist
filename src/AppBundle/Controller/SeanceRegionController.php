@@ -158,7 +158,7 @@ class SeanceRegionController extends Controller
             $nb += $seance->getNbrEntreeSeance();
         }
         $brd->setRecette($sum);
-        $brd->setRecette($sum);
+        $brd->setNbEntrees($nb);
         $em->persist($brd);
         $em->flush();
 

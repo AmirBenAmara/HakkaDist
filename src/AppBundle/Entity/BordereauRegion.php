@@ -56,6 +56,13 @@ class BordereauRegion
     private $recette;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbEntrees", type="integer" ,nullable=true)
+     */
+    private $nbEntrees;
+
+    /**
      * @return float
      */
     public function getRecette()
@@ -151,6 +158,22 @@ class BordereauRegion
     public function setSemaine($semaine)
     {
         $this->semaine = $semaine;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbEntrees()
+    {
+        return $this->nbEntrees;
+    }
+
+    /**
+     * @param int $nbEntrees
+     */
+    public function setNbEntrees($nbEntrees)
+    {
+        $this->nbEntrees = $nbEntrees;
     }
 
 

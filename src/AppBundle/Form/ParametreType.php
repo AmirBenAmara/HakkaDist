@@ -13,7 +13,7 @@ class ParametreType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titre')->add('droitDeTimbre');
+        $builder->add('tva')->add('droitDeTimbre');
     }/**
      * {@inheritdoc}
      */
